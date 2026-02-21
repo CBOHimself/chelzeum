@@ -1,0 +1,34 @@
+[
+  {
+    "id": "cp-001",
+    "title": "Studio Sundays",
+    "platform": "Instagram",
+    "description": "A weekly behind-the-scenes series sharing works in progress, palette experiments, and studio rituals every Sunday morning. Followers get an unfiltered look at the creative process from first sketch to final varnish.",
+    "imageUrl": "/assets/campaigns/studio-sundays.jpg",
+    "link": "https://instagram.com/cherise.studio"
+  },
+  {
+    "id": "cp-002",
+    "title": "Paint With Me",
+    "platform": "TikTok",
+    "description": "Short-form time-lapse videos showing an entire painting come to life in under sixty seconds, set to ambient music. The series has introduced Cherise's work to a younger, broader audience.",
+    "imageUrl": "/assets/campaigns/paint-with-me.jpg",
+    "link": "https://tiktok.com/@cherise.paints"
+  },
+  {
+    "id": "cp-003",
+    "title": "Colour Stories",
+    "platform": "Pinterest",
+    "description": "Curated mood boards pairing Cherise's paintings with the colour palettes, textures, and landscapes that inspired them. Each board tells the story behind a single artwork or series.",
+    "imageUrl": "/assets/campaigns/colour-stories.jpg",
+    "link": "https://pinterest.com/cherise_art"
+  },
+  {
+    "id": "cp-004",
+    "title": "From Reference to Canvas",
+    "platform": "Instagram",
+    "description": "A carousel series placing the original reference photograph side by side with the finished painting, along with a caption exploring the choices made in translation — what was kept, changed, and imagined.",
+    "imageUrl": "/assets/campaigns/reference-to-canvas.jpg",
+    "link": "https://instagram.com/cherise.studio"
+  }
+]

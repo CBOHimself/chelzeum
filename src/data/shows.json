@@ -1,0 +1,68 @@
+[
+  {
+    "id": "sh-001",
+    "title": "Between Tides",
+    "venue": "Harlow Gallery",
+    "city": "Portland, ME",
+    "startDate": "2026-05-08",
+    "endDate": "2026-06-20",
+    "description": "A solo exhibition featuring Cherise's seascape and coastal works from 2023–2025, exploring memory and impermanence through shifting shorelines and tidal rhythms.",
+    "type": "upcoming",
+    "imageUrl": "/assets/shows/between-tides.jpg"
+  },
+  {
+    "id": "sh-002",
+    "title": "New Contemporaries: Emergence",
+    "venue": "MASS MoCA",
+    "city": "North Adams, MA",
+    "startDate": "2026-07-15",
+    "endDate": "2026-09-30",
+    "description": "A juried group show spotlighting twelve emerging painters from the Northeast. Cherise will present three large-scale works from the Botanical Ghosts series.",
+    "type": "upcoming",
+    "imageUrl": "/assets/shows/new-contemporaries.jpg"
+  },
+  {
+    "id": "sh-003",
+    "title": "Quiet Hours",
+    "venue": "Cove Street Arts",
+    "city": "Portland, ME",
+    "startDate": "2025-09-12",
+    "endDate": "2025-10-25",
+    "description": "A solo show centred on Cherise's still life and interior paintings. The exhibition traced the emotional weight of domestic spaces and the objects we choose to keep close.",
+    "type": "past",
+    "imageUrl": "/assets/shows/quiet-hours.jpg"
+  },
+  {
+    "id": "sh-004",
+    "title": "Material Language",
+    "venue": "Able Baker Contemporary",
+    "city": "Portland, ME",
+    "startDate": "2025-03-01",
+    "endDate": "2025-04-12",
+    "description": "A two-person exhibition with sculptor Dana Fenn, exploring texture and surface across painting and ceramics. Cherise debuted her mixed-media panel works here.",
+    "type": "past",
+    "imageUrl": "/assets/shows/material-language.jpg"
+  },
+  {
+    "id": "sh-005",
+    "title": "Under the Same Sky",
+    "venue": "Greenville Center for Creative Arts",
+    "city": "Greenville, SC",
+    "startDate": "2024-06-01",
+    "endDate": "2024-07-20",
+    "description": "A group landscape exhibition bringing together ten painters from across the Eastern seaboard. Cherise exhibited four seascapes and one salt-marsh study.",
+    "type": "past",
+    "imageUrl": "/assets/shows/under-same-sky.jpg"
+  },
+  {
+    "id": "sh-006",
+    "title": "First Light",
+    "venue": "Running With Scissors",
+    "city": "Portland, ME",
+    "startDate": "2023-11-03",
+    "endDate": "2023-12-15",
+    "description": "Cherise's debut solo exhibition — a collection of small-format oil studies created during a self-directed residency at her home studio over the autumn of 2023.",
+    "type": "past",
+    "imageUrl": "/assets/shows/first-light.jpg"
+  }
+]
