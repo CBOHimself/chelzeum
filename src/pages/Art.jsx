@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import { Outlet } from 'react-router-dom';
 
 export default function Art() {
   return (
@@ -10,7 +9,6 @@ export default function Art() {
       exit={{ opacity: 0 }}
     >
       <h1 className="text-4xl font-bold text-text-light">Art</h1>
-      <Outlet />
     </motion.div>
   );
 }

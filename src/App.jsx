@@ -7,19 +7,21 @@ import Shows from './pages/Shows';
 import Commissions from './pages/Commissions';
 import Shop from './pages/Shop';
 import Social from './pages/Social';
+import MainLayout from './layouts/MainLayout';
 
 export default function App() {
   return (
     <AnimatePresence mode="wait">
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/art" element={<Art />}>
-          <Route path="works" element={<Works />} />
-          <Route path="shows" element={<Shows />} />
-          <Route path="commissions" element={<Commissions />} />
+        <Route element={<MainLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/art" element={<Art />} />
+          <Route path="/works" element={<Works />} />
+          <Route path="/shows" element={<Shows />} />
+          <Route path="/commissions" element={<Commissions />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/social" element={<Social />} />
         </Route>
-        <Route path="/shop" element={<Shop />} />
-        <Route path="/social" element={<Social />} />
       </Routes>
     </AnimatePresence>
   );
