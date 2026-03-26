@@ -25,8 +25,7 @@ const TwitterIcon = () => (
 const navLinks = [
   { label: 'Home', to: '/' },
   { label: 'Art', to: '/art' },
-  { label: 'Works', to: '/works' },
-  { label: 'Shows', to: '/shows' },
+  { label: 'Events', to: '/events' },
   { label: 'Commissions', to: '/commissions' },
   { label: 'Shop', to: '/shop' },
   { label: 'Social', to: '/social' },
@@ -91,6 +90,7 @@ const socialVariants = {
 export default function ChelzeumNav() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const displayedNavLinks = navLinks.filter((link) => link.to !== '/works');
 
   useEffect(() => {
     setIsOpen(false);
@@ -153,7 +153,7 @@ export default function ChelzeumNav() {
                 exit="exit"
                 className="hidden md:flex items-center gap-10 list-none m-0 p-0"
               >
-                {navLinks.map((link) => (
+                {displayedNavLinks.map((link) => (
                   <motion.li key={link.to} variants={linkVariants}>
                     <NavLink
                       to={link.to}
@@ -215,7 +215,7 @@ export default function ChelzeumNav() {
               exit="exit"
               className="flex md:hidden flex-col gap-5 mt-8 pb-2 list-none p-0"
             >
-              {navLinks.map((link) => (
+              {displayedNavLinks.map((link) => (
                 <motion.li key={link.to} variants={linkVariants}>
                   <NavLink
                     to={link.to}

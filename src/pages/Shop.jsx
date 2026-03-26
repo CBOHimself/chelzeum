@@ -8,7 +8,7 @@ export default function Shop() {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <h1 className="text-4xl font-bold text-text-light">Shop</h1>
+      <h1 className="text-4xl font-bold text-text-light">test new changes</h1>
     </motion.div>
   );
 }

@@ -1,14 +1,18 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import artworks from "../data/artworks.json";
 import ArtworkViewer from "../components/ArtworkViewer/ArtworkViewer";
 import ArtworkGrid from "../components/ArtworkGrid/ArtworkGrid";
 import ArtworkFilters from "../components/ArtworkFilters/ArtworkFilters";
+import Pagination from "../components/Pagination/Pagination";
+
+const ARTWORKS_PER_PAGE = 9;
 
 const CATEGORIES = ["All", ...new Set(artworks.map((a) => a.category))];
 
 export default function Art() {
   const [activeId, setActiveId] = useState(null);
   const [activeFilter, setActiveFilter] = useState("All");
+  const [currentPage, setCurrentPage] = useState(1);
 
   const filtered = useMemo(
     () =>
@@ -17,6 +21,19 @@ export default function Art() {
         : artworks.filter((a) => a.category === activeFilter),
     [activeFilter]
   );
+
+  const totalPages = Math.ceil(filtered.length / ARTWORKS_PER_PAGE);
+
+  const paginated = useMemo(() => {
+    const start = (currentPage - 1) * ARTWORKS_PER_PAGE;
+    return filtered.slice(start, start + ARTWORKS_PER_PAGE);
+  }, [filtered, currentPage]);
+
+  useEffect(() => {
+    if (totalPages > 0 && currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    }
+  }, [currentPage, totalPages]);
 
   const activeIndex = filtered.findIndex((a) => a.id === activeId);
   const activeArtwork = activeIndex !== -1 ? filtered[activeIndex] : null;
@@ -37,6 +54,7 @@ export default function Art() {
   function handleFilterChange(cat) {
     setActiveFilter(cat);
     setActiveId(null);
+    setCurrentPage(1);
   }
 
   return (
@@ -52,9 +70,9 @@ export default function Art() {
       <header className="art-page-header">
         <div>
           <p className="art-page-count">
-            {String(filtered.length).padStart(2, "0")} Works
+            {String(filtered.length).padStart(2, "0")} Artworks
           </p>
-          <h1 className="art-page-title">Works</h1>
+          <h1 className="art-page-title">Artworks</h1>
         </div>
       </header>
 
@@ -65,9 +83,19 @@ export default function Art() {
       />
 
       <ArtworkGrid
-        artworks={filtered}
+        artworks={paginated}
         activeId={activeId}
         onSelect={handleSelect}
+      />
+
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onChange={(page) => {
+          setCurrentPage(page);
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          setActiveId(null);
+        }}
       />
     </main>
   );
