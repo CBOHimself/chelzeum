@@ -3,6 +3,7 @@ import { AnimatePresence } from "framer-motion";
 import Home from "./pages/Home";
 import Art from "./pages/Art";
 import Events from "./pages/Events";
+import EventDetail from "./pages/EventDetail";
 import Commissions from "./pages/Commissions";
 import Shop from "./pages/Shop";
 import Social from "./pages/Social";
@@ -16,6 +17,7 @@ export default function App() {
           <Route index element={<Home />} />
           <Route path="art" element={<Art />} />
           <Route path="events" element={<Events />} />
+          <Route path="events/:id" element={<EventDetail />} />
           <Route path="commissions" element={<Commissions />} />
           <Route path="shop" element={<Shop />} />
           <Route path="social" element={<Social />} />
