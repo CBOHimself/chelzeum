@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import artworksData from '../data/artworks.json';
 import showsData from '../data/shows.json';
 import campaignsData from '../data/campaigns.json';
 import siteConfigData from '../data/siteConfig.json';
@@ -21,9 +20,13 @@ export default function useData() {
     const load = async () => {
       setLoading(true);
       try {
-        // Swap these static imports for fetch() / CMS SDK calls when ready
+        const artworksRes = await fetch(
+          `${import.meta.env.BASE_URL}data/artworks.json`
+        );
+        if (!artworksRes.ok) throw new Error('Failed to load artworks');
+        const artworksData = await artworksRes.json();
         setData({
-          artworks: artworksData,
+          artworks: Array.isArray(artworksData) ? artworksData : [],
           shows: showsData,
           campaigns: campaignsData,
           siteConfig: siteConfigData,

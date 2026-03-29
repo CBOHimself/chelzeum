@@ -113,30 +113,6 @@ export default function ArtworkViewer({
                     {artwork.description}
                   </motion.p>
                 )}
-
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.35, delay: 0.44 }}
-                  className="viewer-actions"
-                >
-                  <a
-                    href={artwork.originalUrl ?? "#"}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="btn-outline"
-                  >
-                    Buy Original
-                  </a>
-                  <a
-                    href={artwork.printUrl ?? "#"}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="btn-ghost"
-                  >
-                    Buy Print
-                  </a>
-                </motion.div>
               </div>
 
               {/* ── Navigation ── */}
