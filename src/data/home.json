@@ -1,0 +1,47 @@
+{
+    "hero": {
+      "eyebrow": "Meet Chelzeum",
+      "heading1": "The Alchemist",
+      "heading2": "of Shadows",
+      "bio1": "Chelzeum is a multidisciplinary artist working at the intersection of traditional gothic aesthetic and modern digital vibrancy. Her work explores the delicate tension between the macabre and the magnificent.",
+      "bio2": "With a brush dipped in the ink of nocturnes and a palette inspired by the vivid brilliance of stained glass, she transmutes dark themes into luminous narratives that breathe life into the forgotten corners of the imagination.",
+      "image": {
+        "src": "/assets/images/About.JPG",
+        "alt": "Portrait of Chelzeum",
+        "aspectW": 3477,
+        "aspectH": 6000
+      }
+    },
+    "narrative": {
+      "pullQuote": "\"I find beauty in the things that others might call 'too much' — the deep reds, the heavy fabrics, the weight of a silence before a storm.\"",
+      "processLabel": "The Process",
+      "image": {
+        "src": "/assets/images/Home.JPG",
+        "alt": "Chelzeum working in studio",
+        "aspectW": 3345,
+        "aspectH": 5009
+      }
+    },
+    "philosophy": {
+      "heading": "Artistic Philosophy",
+      "body": "Every piece within CHELZEUM is a testament to the belief that darkness is not the absence of light, but the canvas upon which light performs its most dramatic acts. My goal is to create a sanctuary for the whimsical and the gothic to coexist.",
+      "cta": "View Portfolio",
+      "ctaHref": "/art"
+    },
+    "gallery": [
+      { "src": "/assets/home/gallery-1.jpg", "alt": "Artwork 1", "aspectW": 4, "aspectH": 5 },
+      { "src": "/assets/home/gallery-2.jpg", "alt": "Artwork 2", "aspectW": 1, "aspectH": 1 },
+      { "src": "/assets/home/gallery-3.jpg", "alt": "Artwork 3", "aspectW": 3, "aspectH": 4 },
+      { "src": "/assets/home/gallery-4.jpg", "alt": "Artwork 4", "aspectW": 1, "aspectH": 1 },
+      { "src": "/assets/home/gallery-5.jpg", "alt": "Artwork 5", "aspectW": 4, "aspectH": 5 }
+    ],
+    "footer": {
+      "copyright": "© 2024 CHELZEUM. ALL RIGHTS RESERVED.",
+      "links": [
+        { "label": "Instagram", "href": "#" },
+        { "label": "ArtStation", "href": "#" },
+        { "label": "Terms", "href": "#" },
+        { "label": "Privacy", "href": "#" }
+      ]
+    }
+  }
