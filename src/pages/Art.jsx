@@ -1,4 +1,5 @@
 import { useState, useMemo, useEffect } from "react";
+import artworksData from "../data/artworks.json";
 import ArtworkViewer from "../components/ArtworkViewer/ArtworkViewer";
 import ArtworkGrid from "../components/ArtworkGrid/ArtworkGrid";
 import ArtworkFilters from "../components/ArtworkFilters/ArtworkFilters";
@@ -6,43 +7,35 @@ import Pagination from "../components/Pagination/Pagination";
 
 const ARTWORKS_PER_PAGE = 9;
 
-const ARTWORKS_URL = `${import.meta.env.BASE_URL}data/artworks.json`;
+function sortArtworksNewestFirst(list) {
+  return [...list].sort((a, b) => {
+    const yA = Number(a.year) || 0;
+    const yB = Number(b.year) || 0;
+    if (yB !== yA) return yB - yA;
+    return String(a.id).localeCompare(String(b.id), undefined, { numeric: true });
+  });
+}
 
 export default function Art() {
-  const [artworks, setArtworks] = useState([]);
-  const [loadStatus, setLoadStatus] = useState("loading");
-  const [loadError, setLoadError] = useState(null);
+  const artworks = useMemo(
+    () => sortArtworksNewestFirst(artworksData),
+    [artworksData]
+  );
   const [activeId, setActiveId] = useState(null);
   const [activeFilter, setActiveFilter] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
 
-  useEffect(() => {
-    let cancelled = false;
-    fetch(ARTWORKS_URL)
-      .then((res) => {
-        if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
-        return res.json();
-      })
-      .then((data) => {
-        if (cancelled) return;
-        if (!Array.isArray(data)) throw new Error("Invalid artworks format");
-        setArtworks(data);
-        setLoadStatus("ready");
-      })
-      .catch((err) => {
-        if (cancelled) return;
-        setLoadError(err.message ?? "Unknown error");
-        setLoadStatus("error");
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  const categories = useMemo(
-    () => ["All", ...new Set(artworks.map((a) => a.category))],
-    [artworks]
-  );
+  const categories = useMemo(() => {
+    const seen = new Set();
+    const order = [];
+    for (const a of artworks) {
+      if (!seen.has(a.category)) {
+        seen.add(a.category);
+        order.push(a.category);
+      }
+    }
+    return ["All", ...order];
+  }, [artworks]);
 
   const filtered = useMemo(
     () =>
@@ -85,24 +78,6 @@ export default function Art() {
     setActiveFilter(cat);
     setActiveId(null);
     setCurrentPage(1);
-  }
-
-  if (loadStatus === "loading") {
-    return (
-      <main className="art-page art-page--loading">
-        <p className="art-page-loading-msg">Loading artworks…</p>
-      </main>
-    );
-  }
-
-  if (loadStatus === "error") {
-    return (
-      <main className="art-page art-page--error">
-        <p className="art-page-error-msg">
-          Could not load artworks{loadError ? `: ${loadError}` : ""}.
-        </p>
-      </main>
-    );
   }
 
   return (

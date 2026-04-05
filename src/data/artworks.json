@@ -26,7 +26,7 @@
     "medium": "Oil & Beeswax on Canvas ",
     "dimensions": "106 x 80 cm",
     "description": "Three persimmons rest on a rumpled linen cloth, their translucent orange skins catching afternoon light from an unseen window. A quiet meditation on patience and ripeness.",
-    "imageUrl": "/assets/artworks/eve1.jpg",
+    "imageUrl": "/assets/artworks/eve3.jpg",
     "category": "Still Life"
   },
   {
@@ -48,16 +48,6 @@
     "description": "A lot of the floral elements within my personal work are derived from very few memories i have of my childhood, a lot of which i’ve repressed over the years. i have very distinct memories of the house i grew up in having a huge flower garden. as a child most of my artwork involved flowers, dogs & cats, and humans scribbled in a stick figuresque fashion. my inner child paintings aren’t specifically supposed to be \"good\", they are the abstract scribbles that support the soft, white underbelly of my surrealist and impressionist paintings. one cannot exist without the other. seek & destroy is about ruining reputations and definitions and expectations. a big part of my childhood was being a put together adult. read that again. my adulthood is about being a child again.",
     "imageUrl": "/assets/artworks/seek-and-destroy.jpg",
     "category": "Abstract"
-  },
-  {
-    "id": "aw-006",
-    "title": "February Table",
-    "year": 2024,
-    "medium": "Oil on panel",
-    "dimensions": "16 × 20 in",
-    "description": "A half-eaten pomegranate, a ceramic mug of cold tea, and a dog-eared paperback share a weathered oak table. Morning light pools on the wood grain in soft geometric shapes.",
-    "imageUrl": "/assets/artworks/flower-dark-room-alt-2.jpg",
-    "category": "Still Life"
   },
   {
     "id": "aw-007",
@@ -118,5 +108,25 @@
     "description": "A Commission for J. & S. Morris.<br>  2/2 of my Cancer Research UK Commissions.",
     "imageUrl": "/assets/artworks/planets-collide.jpg",
     "category": "Mixed Media"
+  },
+  {
+    "id": "aw-013",
+    "title": "The Subtle Art of Not Giving a Fuck",
+    "year": 2024,
+    "medium": "Oil on Circular Canvas",
+    "dimensions": "30 cm diameter",
+    "description": " ",
+    "imageUrl": "/assets/artworks/not-giving-a-f.jpg",
+    "category": "Mixed Media"
+  },
+  {
+    "id": "aw-014",
+    "title": "My Father's Daughter",
+    "year": 2025,
+    "medium": "Oil on Canvas",
+    "dimensions": "91 x 100 cm",
+    "description": " ",
+    "imageUrl": "/assets/artworks/fathers-daughter.jpg",
+    "category": "Still Life"
   }
 ]

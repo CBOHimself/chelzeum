@@ -3,9 +3,93 @@
 :root {
   --color-bg-primary: #0d1b2a;
   --color-bg-secondary: #111d2b;
+  --color-bg-tertiary: #0a1420;
+  --color-surface-narrative: #142538;
   --color-accent-rose: #784247;
   --color-accent-mauve: #5d4a66;
   --color-text-light: #f4ede5;
+
+  --shadow-nav: 0 4px 60px rgba(13, 27, 42, 0.55),
+    inset 0 1px 0 rgba(244, 237, 229, 0.06);
+
+  --ink-05: color-mix(in srgb, var(--color-text-light) 5%, transparent);
+  --ink-07: color-mix(in srgb, var(--color-text-light) 7%, transparent);
+  --ink-10: color-mix(in srgb, var(--color-text-light) 10%, transparent);
+  --ink-12: color-mix(in srgb, var(--color-text-light) 12%, transparent);
+  --ink-15: color-mix(in srgb, var(--color-text-light) 15%, transparent);
+  --ink-20: color-mix(in srgb, var(--color-text-light) 20%, transparent);
+  --ink-25: color-mix(in srgb, var(--color-text-light) 25%, transparent);
+  --ink-35: color-mix(in srgb, var(--color-text-light) 35%, transparent);
+  --ink-40: color-mix(in srgb, var(--color-text-light) 40%, transparent);
+  --ink-50: color-mix(in srgb, var(--color-text-light) 50%, transparent);
+  --ink-55: color-mix(in srgb, var(--color-text-light) 55%, transparent);
+  --ink-60: color-mix(in srgb, var(--color-text-light) 60%, transparent);
+  --ink-65: color-mix(in srgb, var(--color-text-light) 65%, transparent);
+  --ink-70: color-mix(in srgb, var(--color-text-light) 70%, transparent);
+  --ink-75: color-mix(in srgb, var(--color-text-light) 75%, transparent);
+  --ink-85: color-mix(in srgb, var(--color-text-light) 85%, transparent);
+}
+
+[data-theme="light"] {
+  --color-bg-primary: #f4ede5;
+  --color-bg-secondary: #e8e0d6;
+  --color-bg-tertiary: #ded5c8;
+  --color-surface-narrative: #ebe3da;
+  --color-text-light: #0d1b2a;
+
+  --shadow-nav: 0 4px 48px rgba(13, 27, 42, 0.12),
+    inset 0 1px 0 rgba(13, 27, 42, 0.05);
+}
+
+/* ─── Nav: theme control + drawer shell ───────── */
+.nav-drawer-shell {
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  background: color-mix(in srgb, var(--color-bg-primary) 72%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-accent-rose) 32%, transparent);
+  border-radius: 1rem;
+  box-shadow: var(--shadow-nav);
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: stretch;
+  border-radius: 9999px;
+  border: 1px solid color-mix(in srgb, var(--color-accent-rose) 35%, transparent);
+  overflow: hidden;
+  background: color-mix(in srgb, var(--color-bg-primary) 40%, transparent);
+}
+
+.theme-toggle__btn {
+  font-family: "Century Gothic", Century, sans-serif;
+  font-size: 8px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  padding: 9px 12px;
+  background: transparent;
+  color: var(--ink-55);
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.theme-toggle__btn:hover {
+  color: var(--color-text-light);
+  background: color-mix(in srgb, var(--color-text-light) 8%, transparent);
+}
+
+.theme-toggle__btn--active {
+  background: var(--color-accent-rose);
+  color: #f4ede5;
+}
+
+.theme-toggle__btn--active:hover {
+  color: #f4ede5;
+  background: var(--color-accent-rose);
+}
+
+.theme-toggle__btn + .theme-toggle__btn {
+  border-left: 1px solid color-mix(in srgb, var(--color-accent-rose) 28%, transparent);
 }
 
 *,
@@ -29,6 +113,7 @@ body {
   background: var(--color-bg-primary);
   color: var(--color-text-light);
   font-family: "Century Gothic", Century, sans-serif;
+  transition: background-color 0.35s ease, color 0.35s ease;
 }
 
 a {
@@ -72,7 +157,7 @@ a {
   font-family: 'Century Gothic', Century, sans-serif;
   font-size: 13px;
   letter-spacing: 0.12em;
-  color: rgba(244, 237, 229, 0.65);
+  color: var(--ink-65);
   text-align: center;
   max-width: 36rem;
   line-height: 1.6;
@@ -84,13 +169,13 @@ a {
   display: flex;
   gap: 6px;
   flex-wrap: wrap;
-  border-bottom: 1px solid rgba(244, 237, 229, 0.05);
+  border-bottom: 1px solid var(--ink-05);
 }
 .art-filter-pill {
   padding: 7px 20px;
   border: 1px solid rgba(120, 66, 71, 0.35);
   background: transparent;
-  color: rgba(244, 237, 229, 0.55);
+  color: var(--ink-55);
   font-family: 'Century Gothic', Century, sans-serif;
   font-size: 9px;
   letter-spacing: 0.3em;
@@ -100,7 +185,7 @@ a {
 }
 .art-filter-pill:hover {
   border-color: rgba(120, 66, 71, 0.7);
-  color: rgba(244, 237, 229, 0.85);
+  color: var(--ink-85);
 }
 .art-filter-pill--active {
   background: var(--color-accent-rose);
@@ -193,7 +278,7 @@ a {
 .art-card__overlay-sub {
   font-size: 9px;
   letter-spacing: 0.3em;
-  color: rgba(244, 237, 229, 0.65);
+  color: var(--ink-65);
   text-transform: uppercase;
 }
 
@@ -218,7 +303,7 @@ a {
   border-bottom: 1px solid rgba(120, 66, 71, 0.3);
 }
 .viewer-inner {
-  background: #111D2B;
+  background: var(--color-bg-secondary);
   display: grid;
   grid-template-columns: 1fr 1fr;
   min-height: 460px;
@@ -229,7 +314,7 @@ a {
 
 .viewer-image-panel {
   position: relative;
-  background: #0a1420;
+  background: var(--color-bg-tertiary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -251,7 +336,7 @@ a {
   justify-content: center;
   font-size: 11px;
   letter-spacing: 0.2em;
-  color: rgba(244, 237, 229, 0.15);
+  color: var(--ink-15);
   text-transform: uppercase;
 }
 .viewer-dots {
@@ -266,7 +351,7 @@ a {
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: rgba(244, 237, 229, 0.25);
+  background: var(--ink-25);
   display: block;
 }
 .viewer-dot.active { background: var(--color-accent-rose); }
@@ -309,13 +394,13 @@ a {
 .viewer-medium {
   font-size: 12px;
   letter-spacing: 0.1em;
-  color: rgba(244, 237, 229, 0.5);
+  color: var(--ink-50);
   margin-bottom: 20px;
 }
 .viewer-desc {
   font-size: 13px;
   line-height: 1.85;
-  color: rgba(244, 237, 229, 0.65);
+  color: var(--ink-65);
   max-width: 340px;
   margin-bottom: 32px;
 }
@@ -343,13 +428,13 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-top: 1px solid rgba(244, 237, 229, 0.07);
+  border-top: 1px solid var(--ink-07);
   padding-top: 20px;
 }
 .viewer-nav-btn {
   background: transparent;
   border: none;
-  color: rgba(244, 237, 229, 0.4);
+  color: var(--ink-40);
   font-family: 'Century Gothic', Century, sans-serif;
   font-size: 10px;
   letter-spacing: 0.28em;
@@ -366,7 +451,7 @@ a {
 .viewer-close-btn {
   background: transparent;
   border: none;
-  color: rgba(244, 237, 229, 0.35);
+  color: var(--ink-35);
   font-size: 10px;
   letter-spacing: 0.28em;
   text-transform: uppercase;
@@ -499,7 +584,7 @@ a {
 .event-card__desc {
   font-size: 12px;
   line-height: 1.75;
-  color: rgba(244, 237, 229, 0.55);
+  color: var(--ink-55);
   margin-top: 4px;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -525,8 +610,8 @@ a {
   color: var(--color-accent-rose);
 }
 .event-status-badge--past {
-  border-color: rgba(244, 237, 229, 0.2);
-  color: rgba(244, 237, 229, 0.4);
+  border-color: var(--ink-20);
+  color: var(--ink-40);
 }
 
 /* ─── Tags ───────────────────────────────────────── */
@@ -535,8 +620,8 @@ a {
   letter-spacing: 0.2em;
   text-transform: uppercase;
   padding: 3px 8px;
-  border: 1px solid rgba(244, 237, 229, 0.12);
-  color: rgba(244, 237, 229, 0.4);
+  border: 1px solid var(--ink-12);
+  color: var(--ink-40);
 }
 .event-tag--small {
   font-size: 7px;
@@ -554,7 +639,7 @@ a {
 .event-back-btn {
   background: transparent;
   border: none;
-  color: rgba(244, 237, 229, 0.4);
+  color: var(--ink-40);
   font-family: "Century Gothic", Century, sans-serif;
   font-size: 10px;
   letter-spacing: 0.3em;
@@ -642,7 +727,7 @@ a {
   text-transform: uppercase;
 }
 .event-detail-dot {
-  color: rgba(244, 237, 229, 0.2);
+  color: var(--ink-20);
 }
 .event-detail-venue {
   font-size: 10px;
@@ -667,7 +752,7 @@ a {
 .event-detail-para {
   font-size: 14px;
   line-height: 1.9;
-  color: rgba(244, 237, 229, 0.7);
+  color: var(--ink-70);
   margin-bottom: 20px;
 }
 
@@ -694,7 +779,7 @@ a {
 .pagination__arrow {
   background: transparent;
   border: 1px solid rgba(120, 66, 71, 0.3);
-  color: rgba(244, 237, 229, 0.4);
+  color: var(--ink-40);
   font-family: "Century Gothic", Century, sans-serif;
   font-size: 12px;
   width: 36px;
@@ -715,8 +800,8 @@ a {
 }
 .pagination__page {
   background: transparent;
-  border: 1px solid rgba(244, 237, 229, 0.1);
-  color: rgba(244, 237, 229, 0.4);
+  border: 1px solid var(--ink-10);
+  color: var(--ink-40);
   font-family: "Century Gothic", Century, sans-serif;
   font-size: 10px;
   letter-spacing: 0.15em;
@@ -856,7 +941,7 @@ a {
 .event-card__desc {
   font-size: 12px;
   line-height: 1.75;
-  color: rgba(244, 237, 229, 0.55);
+  color: var(--ink-55);
   margin-top: 4px;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -878,8 +963,8 @@ a {
   color: var(--color-accent-rose);
 }
 .event-status-badge--past {
-  border-color: rgba(244, 237, 229, 0.2);
-  color: rgba(244, 237, 229, 0.4);
+  border-color: var(--ink-20);
+  color: var(--ink-40);
 }
 
 /* ─── Tags ───────────────────────────────────────── */
@@ -888,8 +973,8 @@ a {
   letter-spacing: 0.2em;
   text-transform: uppercase;
   padding: 3px 8px;
-  border: 1px solid rgba(244, 237, 229, 0.12);
-  color: rgba(244, 237, 229, 0.4);
+  border: 1px solid var(--ink-12);
+  color: var(--ink-40);
 }
 .event-tag--small { font-size: 7px; }
 
@@ -903,7 +988,7 @@ a {
 .event-back-btn {
   background: transparent;
   border: none;
-  color: rgba(244, 237, 229, 0.4);
+  color: var(--ink-40);
   font-family: 'Century Gothic', Century, sans-serif;
   font-size: 10px;
   letter-spacing: 0.3em;
@@ -978,7 +1063,7 @@ a {
   color: var(--color-accent-rose);
   text-transform: uppercase;
 }
-.event-detail-dot { color: rgba(244, 237, 229, 0.2); }
+.event-detail-dot { color: var(--ink-20); }
 .event-detail-venue {
   font-size: 10px;
   letter-spacing: 0.2em;
@@ -1000,7 +1085,7 @@ a {
 .event-detail-para {
   font-size: 14px;
   line-height: 1.9;
-  color: rgba(244, 237, 229, 0.7);
+  color: var(--ink-70);
   margin-bottom: 20px;
 }
 
@@ -1027,7 +1112,7 @@ a {
 .pagination__arrow {
   background: transparent;
   border: 1px solid rgba(120, 66, 71, 0.3);
-  color: rgba(244, 237, 229, 0.4);
+  color: var(--ink-40);
   font-family: 'Century Gothic', Century, sans-serif;
   font-size: 12px;
   width: 36px;
@@ -1048,8 +1133,8 @@ a {
 }
 .pagination__page {
   background: transparent;
-  border: 1px solid rgba(244, 237, 229, 0.1);
-  color: rgba(244, 237, 229, 0.4);
+  border: 1px solid var(--ink-10);
+  color: var(--ink-40);
   font-family: 'Century Gothic', Century, sans-serif;
   font-size: 10px;
   letter-spacing: 0.15em;
@@ -1176,14 +1261,14 @@ a {
 .home-hero__bio {
   font-size: 17px;
   line-height: 1.75;
-  color: rgba(244, 237, 229, 0.65);
+  color: var(--ink-65);
   max-width: 520px;
   margin-bottom: 20px;
 }
 
 /* ─── Narrative ─────────────────────────────── */
 .home-narrative {
-  background: #142538;
+  background: var(--color-surface-narrative);
   padding: 128px 0;
   margin-bottom: 160px;
   position: relative;
@@ -1259,11 +1344,11 @@ a {
   font-size: clamp(18px, 2vw, 24px);
   font-style: italic;
   line-height: 1.6;
-  color: rgba(244, 237, 229, 0.75);
+  color: var(--ink-75);
 }
 .home-narrative__img-col {}
 .home-narrative__img-wrap {
-  background: #0a1420;
+  background: var(--color-bg-tertiary);
   padding: 16px;
   box-shadow: 0 32px 80px rgba(0,0,0,0.5);
 }
@@ -1328,7 +1413,7 @@ a {
 .home-philosophy__body {
   font-size: 14px;
   line-height: 1.85;
-  color: rgba(244, 237, 229, 0.6);
+  color: var(--ink-60);
 }
 .home-philosophy__cta {
   display: inline-flex;
@@ -1445,7 +1530,7 @@ a {
   letter-spacing: 0.4em;
   text-transform: uppercase;
   font-weight: 700;
-  color: rgba(244, 237, 229, 0.4);
+  color: var(--ink-40);
   text-decoration: none;
   transition: color 0.3s ease, opacity 0.3s ease;
 }

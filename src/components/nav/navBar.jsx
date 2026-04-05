@@ -2,6 +2,51 @@ import { useEffect, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
+const THEME_STORAGE_KEY = 'chelzeum-theme';
+
+function readTheme() {
+  if (typeof document === 'undefined') return 'light';
+  return document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+}
+
+function ThemeToggle() {
+  const [theme, setTheme] = useState(readTheme);
+
+  useEffect(() => {
+    if (theme === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+    }
+    try {
+      localStorage.setItem(THEME_STORAGE_KEY, theme);
+    } catch {
+      /* ignore */
+    }
+  }, [theme]);
+
+  return (
+    <div className="theme-toggle" role="group" aria-label="Color theme">
+      <button
+        type="button"
+        className={`theme-toggle__btn ${theme === 'dark' ? 'theme-toggle__btn--active' : ''}`}
+        onClick={() => setTheme('dark')}
+        aria-pressed={theme === 'dark'}
+      >
+        Dark
+      </button>
+      <button
+        type="button"
+        className={`theme-toggle__btn ${theme === 'light' ? 'theme-toggle__btn--active' : ''}`}
+        onClick={() => setTheme('light')}
+        aria-pressed={theme === 'light'}
+      >
+        Light
+      </button>
+    </div>
+  );
+}
+
 const TikTokIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
     <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z" />
@@ -87,6 +132,20 @@ const socialVariants = {
   exit: { opacity: 0, scale: 0.8, transition: { duration: 0.2 } },
 };
 
+const navLinkClass = ({ isActive }) =>
+  `relative inline-flex py-3 tracking-[0.22em] text-xs font-medium uppercase transition-colors duration-300 group ${
+    isActive
+      ? 'text-[color:var(--color-text-light)]'
+      : 'text-[color:var(--ink-85)] hover:text-[color:var(--color-text-light)]'
+  }`;
+
+const navLinkClassMobile = ({ isActive }) =>
+  `inline-flex py-2 tracking-[0.25em] text-sm font-medium uppercase transition-colors duration-300 ${
+    isActive
+      ? 'text-[color:var(--color-text-light)]'
+      : 'text-[color:var(--ink-85)] hover:text-[var(--color-accent-rose)]'
+  }`;
+
 export default function ChelzeumNav() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
@@ -98,29 +157,31 @@ export default function ChelzeumNav() {
 
   return (
     <>
-      <AnimatePresence>
-        {!isOpen && (
-          <motion.div
-            key="menu-btn"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1, transition: { duration: 0.6, delay: 0.2 } }}
-            exit={{ opacity: 0, transition: { duration: 0.2 } }}
-            className="fixed top-6 right-8 z-50"
-          >
-            <button
-              onClick={() => setIsOpen(true)}
-              aria-label="Open navigation"
-              className="group flex items-center gap-2 text-[#F4EDE5] tracking-[0.35em] text-xs font-medium uppercase"
+      <div className="fixed top-6 right-8 z-50 flex flex-row items-center gap-3">
+        <ThemeToggle />
+        <AnimatePresence>
+          {!isOpen && (
+            <motion.div
+              key="menu-btn"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1, transition: { duration: 0.6, delay: 0.2 } }}
+              exit={{ opacity: 0, transition: { duration: 0.2 } }}
             >
-              <span className="flex flex-col gap-[5px]">
-                <span className="block w-5 h-px bg-[#F4EDE5] transition-all duration-300 group-hover:w-7" />
-                <span className="block w-3 h-px bg-[#784247] transition-all duration-300 group-hover:w-7" />
-              </span>
-              Menu
-            </button>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              <button
+                onClick={() => setIsOpen(true)}
+                aria-label="Open navigation"
+                className="group flex items-center gap-2 text-[color:var(--color-text-light)] tracking-[0.35em] text-xs font-medium uppercase"
+              >
+                <span className="flex flex-col gap-[5px]">
+                  <span className="block w-5 h-px bg-[var(--color-text-light)] transition-all duration-300 group-hover:w-7" />
+                  <span className="block w-3 h-px bg-[var(--color-accent-rose)] transition-all duration-300 group-hover:w-7" />
+                </span>
+                Menu
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
 
       <AnimatePresence>
         {isOpen && (
@@ -131,16 +192,13 @@ export default function ChelzeumNav() {
             animate="visible"
             exit="exit"
             aria-label="Main navigation"
-            className="fixed top-12 left-12 right-12 md:top-6 md:left-8 md:right-8 z-50 px-8 md:px-12 py-10 backdrop-blur-md bg-[#0D1B2A]/60 border border-[#784247]/30 rounded-2xl"
-            style={{
-              boxShadow: '0 4px 60px rgba(13,27,42,0.6), inset 0 1px 0 rgba(244,237,229,0.04)',
-            }}
+            className="nav-drawer-shell fixed top-12 left-12 right-12 md:top-6 md:left-8 md:right-8 z-50 px-8 md:px-12 py-10"
           >
             <div className="flex items-center justify-between w-full">
               <motion.div variants={linkVariants}>
                 <Link
                   to="/"
-                  className="text-2xl md:text-3xl text-[#F4EDE5] tracking-[0.18em] uppercase font-serif transition-all duration-300 hover:italic hover:text-[#784247]"
+                  className="text-2xl md:text-3xl text-[color:var(--color-text-light)] tracking-[0.18em] uppercase font-serif transition-all duration-300 hover:italic hover:text-[var(--color-accent-rose)]"
                 >
                   Chelzeum
                 </Link>
@@ -155,16 +213,9 @@ export default function ChelzeumNav() {
               >
                 {displayedNavLinks.map((link) => (
                   <motion.li key={link.to} variants={linkVariants}>
-                    <NavLink
-                      to={link.to}
-                      className={({ isActive }) =>
-                        `relative inline-flex py-3 tracking-[0.22em] text-xs font-medium uppercase transition-colors duration-300 group ${
-                          isActive ? 'text-[#F4EDE5]' : 'text-[#F4EDE5]/85 hover:text-[#F4EDE5]'
-                        }`
-                      }
-                    >
+                    <NavLink to={link.to} className={navLinkClass}>
                       {link.label}
-                      <span className="absolute -bottom-1 left-0 w-0 h-px bg-[#784247] transition-all duration-300 group-hover:w-full" />
+                      <span className="absolute -bottom-1 left-0 w-0 h-px bg-[var(--color-accent-rose)] transition-all duration-300 group-hover:w-full" />
                     </NavLink>
                   </motion.li>
                 ))}
@@ -184,20 +235,20 @@ export default function ChelzeumNav() {
                       variants={socialVariants}
                       href={href}
                       aria-label={label}
-                      className="text-[#F4EDE5]/60 hover:text-[#784247] transition-colors duration-300"
+                      className="text-[color:var(--ink-60)] hover:text-[var(--color-accent-rose)] transition-colors duration-300"
                     >
                       <Icon />
                     </motion.a>
                   ))}
                 </motion.div>
 
-                <motion.span variants={linkVariants} className="hidden sm:block w-px h-5 bg-[#784247]/40" />
+                <motion.span variants={linkVariants} className="hidden sm:block w-px h-5 bg-[color-mix(in_srgb,var(--color-accent-rose)_40%,transparent)]" />
 
                 <motion.button
                   variants={linkVariants}
                   onClick={() => setIsOpen(false)}
                   aria-label="Close navigation"
-                  className="group flex items-center gap-2 py-3 text-[#F4EDE5]/70 tracking-[0.3em] text-xs font-medium uppercase hover:text-[#F4EDE5] transition-colors duration-300"
+                  className="group flex items-center gap-2 py-3 text-[color:var(--ink-70)] tracking-[0.3em] text-xs font-medium uppercase hover:text-[color:var(--color-text-light)] transition-colors duration-300"
                 >
                   Close
                   <span className="relative w-4 h-4">
@@ -217,14 +268,7 @@ export default function ChelzeumNav() {
             >
               {displayedNavLinks.map((link) => (
                 <motion.li key={link.to} variants={linkVariants}>
-                  <NavLink
-                    to={link.to}
-                    className={({ isActive }) =>
-                      `inline-flex py-2 tracking-[0.25em] text-sm font-medium uppercase transition-colors duration-300 ${
-                        isActive ? 'text-[#F4EDE5]' : 'text-[#F4EDE5]/85 hover:text-[#784247]'
-                      }`
-                    }
-                  >
+                  <NavLink to={link.to} className={navLinkClassMobile}>
                     {link.label}
                   </NavLink>
                 </motion.li>
@@ -236,7 +280,7 @@ export default function ChelzeumNav() {
                     key={label}
                     href={href}
                     aria-label={label}
-                    className="text-[#F4EDE5]/50 hover:text-[#784247] transition-colors duration-300"
+                    className="text-[color:var(--ink-50)] hover:text-[var(--color-accent-rose)] transition-colors duration-300"
                   >
                     <Icon />
                   </a>
