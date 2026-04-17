@@ -29,10 +29,10 @@
       "ctaHref": "/art"
     },
     "gallery": [
-      { "src": "/assets/artworks/eve1.jpg", "alt": "Artwork 1", "aspectW": 4, "aspectH": 5 },
+      { "src": "/assets/artworks/eve3.jpg", "alt": "Artwork 1", "aspectW": 4, "aspectH": 5 },
       { "src": "/assets/artworks/flower-dark-room.jpg", "alt": "Artwork 2", "aspectW": 1, "aspectH": 1 },
       { "src": "/assets/artworks/maneater.jpg", "alt": "Artwork 3", "aspectW": 3, "aspectH": 4 },
-      { "src": "/assets/artworks/7-of-cups.jpg", "alt": "Artwork 4", "aspectW": 1, "aspectH": 1 },
+      { "src": "/assets/artworks/fathers-daughter.jpg", "alt": "Artwork 4", "aspectW": 1, "aspectH": 1 },
       { "src": "/assets/artworks/jama.jpg", "alt": "Artwork 5", "aspectW": 4, "aspectH": 5 }
     ],
     "footer": {

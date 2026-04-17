@@ -71,8 +71,7 @@ const navLinks = [
   { label: 'Home', to: '/' },
   { label: 'Art', to: '/art' },
   { label: 'Events', to: '/events' },
-  { label: 'Commissions', to: '/commissions' },
-  { label: 'Shop', to: '/shop' },
+  { label: 'Bio', to: '/bio' },
   { label: 'Social', to: '/social' },
 ];
 

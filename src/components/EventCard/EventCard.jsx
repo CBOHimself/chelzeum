@@ -21,6 +21,7 @@ function formatDate(dateStr) {
 
 export default function EventCard({ event, onSelect }) {
   const isPast = event.type === "past";
+  const summaryText = event.longDescription || event.description;
 
   return (
     <motion.article
@@ -74,7 +75,7 @@ export default function EventCard({ event, onSelect }) {
           {event.venue} · {event.city}
         </p>
 
-        <p className="event-card__desc">{event.description}</p>
+        <p className="event-card__desc">{summaryText}</p>
       </div>
     </motion.article>
   );
