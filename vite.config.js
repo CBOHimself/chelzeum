@@ -1,6 +1,8 @@
 import { defineConfig, normalizePath } from 'vite';
 import react from '@vitejs/plugin-react';
 
+import { cloudflare } from "@cloudflare/vite-plugin";
+
 /**
  * Vite does not full-reload the browser when files under `public/` change (they are not
  * part of the module graph). This plugin fixes that so e.g. `public/data/artworks.json`
@@ -33,7 +35,7 @@ function publicDirFullReload() {
 // cannot compile JSX/CSS or connect to Vite HMR (`npm run dev`).
 
 export default defineConfig({
-  plugins: [react(), publicDirFullReload()],
+  plugins: [react(), publicDirFullReload(), cloudflare()],
   server: {
     port: 5173,
     strictPort: false,
