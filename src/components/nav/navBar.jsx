@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { FaInstagram, FaTiktok, FaXTwitter } from 'react-icons/fa6';
+import { SiEtsy } from 'react-icons/si';
 
 const THEME_STORAGE_KEY = 'chelzeum-theme';
 
@@ -47,25 +49,7 @@ function ThemeToggle() {
   );
 }
 
-const TikTokIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z" />
-  </svg>
-);
-
-const InstagramIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-    <circle cx="12" cy="12" r="4" />
-    <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
-  </svg>
-);
-
-const TwitterIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-  </svg>
-);
+const SOCIAL_ICON_SIZE = 18;
 
 const navLinks = [
   { label: 'Home', to: '/' },
@@ -76,9 +60,10 @@ const navLinks = [
 ];
 
 const socials = [
-  { label: 'TikTok', icon: TikTokIcon, href: 'https://www.tiktok.com/@chellysmuse?_r=1&_t=ZS-964ltXHOvNY' },
-  { label: 'Instagram', icon: InstagramIcon, href: 'https://www.instagram.com/chelzeum?igsh=dm1ianBjbWV1czhp' },
-  { label: 'Twitter', icon: TwitterIcon, href: 'https://x.com/prettiestchelly' },
+  { label: 'TikTok', icon: FaTiktok, href: 'https://www.tiktok.com/@chellysmuse?_r=1&_t=ZS-964ltXHOvNY' },
+  { label: 'Instagram', icon: FaInstagram, href: 'https://www.instagram.com/chelzeum?igsh=dm1ianBjbWV1czhp' },
+  { label: 'Twitter', icon: FaXTwitter, href: 'https://x.com/prettiestchelly' },
+  { label: 'Etsy', icon: SiEtsy, href: 'https://www.etsy.com/uk/shop/CHELZEUM' },
 ];
 
 const navVariants = {
@@ -234,9 +219,9 @@ export default function ChelzeumNav() {
                       variants={socialVariants}
                       href={href}
                       aria-label={label}
-                      className="text-[color:var(--ink-60)] hover:text-[var(--color-accent-rose)] transition-colors duration-300"
+                      className="text-[color:var(--ink-60)] hover:text-[var(--color-accent-rose)] transition-colors duration-300 inline-flex"
                     >
-                      <Icon />
+                      <Icon size={SOCIAL_ICON_SIZE} aria-hidden />
                     </motion.a>
                   ))}
                 </motion.div>
@@ -279,9 +264,9 @@ export default function ChelzeumNav() {
                     key={label}
                     href={href}
                     aria-label={label}
-                    className="text-[color:var(--ink-50)] hover:text-[var(--color-accent-rose)] transition-colors duration-300"
+                    className="text-[color:var(--ink-50)] hover:text-[var(--color-accent-rose)] transition-colors duration-300 inline-flex"
                   >
-                    <Icon />
+                    <Icon size={SOCIAL_ICON_SIZE} aria-hidden />
                   </a>
                 ))}
               </motion.li>

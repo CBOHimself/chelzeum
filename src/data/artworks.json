@@ -123,10 +123,30 @@
     "id": "aw-014",
     "title": "My Father's Daughter",
     "year": 2025,
-    "medium": "Oil on Canvas",
-    "dimensions": "91 x 100 cm",
-    "description": "This work speaks to the feeling of being suspended in time while the world continues forward, unchanged, indifferent. It is both an expression of mourning and a reflection on the enduring bond between parent and child.",
-    "imageUrl": "/assets/artworks/fathers-daughter.jpg",
-    "purchaseLink": "https://www.etsy.com/uk/listing/4479849679/original-oil-painting-my-fathers?sr_prefetch=0&pf_from=shop_home&ref=shop_home_active_2&logging_key=468e1800db347eb3e21460275dbd34f5ceeb2135%3A4479849679"
-  }
+      "medium": "Oil on Canvas",
+      "dimensions": "91 x 100 cm",
+      "description": "This work speaks to the feeling of being suspended in time while the world continues forward, unchanged, indifferent. It is both an expression of mourning and a reflection on the enduring bond between parent and child.",
+      "imageUrl": "/assets/artworks/fathers-daughter.jpg",
+      "purchaseLink": "https://www.etsy.com/uk/listing/4479849679/original-oil-painting-my-fathers?sr_prefetch=0&pf_from=shop_home&ref=shop_home_active_2&logging_key=468e1800db347eb3e21460275dbd34f5ceeb2135%3A4479849679"
+    },
+    {
+      "id": "aw-015",
+      "title": "Orchids- A Study",
+      "year": 2026,
+      "medium": "Watercolour",
+      "dimensions": "40 x 30 cm",
+      "description": " ",
+      "imageUrl": "/assets/artworks/orchids.jpeg",
+      "purchaseLink": "https://www.etsy.com/uk/listing/4479858790/original-oil-painting-the-subtle-art-of?sr_prefetch=0&pf_from=shop_home&ref=shop_home_active_1&logging_key=e3797f951b69c4f1159cf7c69ac1e038fef34a10%3A4479858790"
+    },
+    {
+      "id": "aw-016",
+      "title": "1000 Ways to Die",
+      "year": 2026,
+      "medium": "Oil on Canvas",
+      "dimensions": "40 x 40 cm",
+      "description": " ",
+      "imageUrl": "/assets/artworks/1000-ways-to-die.jpg",
+      "purchaseLink": "https://www.etsy.com/uk/listing/4479858790/original-oil-painting-the-subtle-art-of?sr_prefetch=0&pf_from=shop_home&ref=shop_home_active_1&logging_key=e3797f951b69c4f1159cf7c69ac1e038fef34a10%3A4479858790"
+    }
 ]
