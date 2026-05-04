@@ -113,6 +113,21 @@ export default function ArtworkViewer({
                     {artwork.description}
                   </motion.p>
                 )}
+
+                {typeof artwork.purchaseLink === "string" && artwork.purchaseLink.trim() ? (
+                  <motion.a
+                    key={artwork.id + "-purchase"}
+                    href={artwork.purchaseLink.trim()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.4, delay: 0.42 }}
+                    className="viewer-purchase"
+                  >
+                    Available for Purchase
+                  </motion.a>
+                ) : null}
               </div>
 
               {/* ── Navigation ── */}

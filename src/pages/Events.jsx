@@ -45,9 +45,9 @@ export default function Events() {
         <div
           className="events-hero-placeholder"
           role="img"
-          aria-label="Events banner image placeholder"
+          aria-label="Events banner"
         >
-          <span>Image Placeholder 4502 × 2534</span>
+          <img src="/assets/images/Events.JPG" alt="" />
         </div>
       </section>
 

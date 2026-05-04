@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import events from "../data/events.json";
@@ -17,6 +17,14 @@ export default function EventDetail() {
   const navigate = useNavigate();
 
   const event = useMemo(() => events.find((e) => e.id === id), [id]);
+
+  useEffect(() => {
+    if (!event) {
+      document.title = "Chelzeum — Event not found";
+      return;
+    }
+    document.title = `Chelzeum — ${event.title}`;
+  }, [event]);
 
   if (!event) {
     return (

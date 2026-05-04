@@ -102,15 +102,38 @@ export default function Bio() {
     >
       <header className="bio-hero">
         <div className="bio-hero__copy">
-          <p className="art-page-count">Chelsea Sapphire Oware</p>
-          <h1 className="art-page-title">Bio</h1>
+          <p className="art-page-count">Bio</p>
+          <h1 className="art-page-title">Chelsea Sapphire Oware</h1>
           <p className="bio-hero__subtitle">Ghanaian Fine Artist | East London, UK</p>
-          <p className="bio-hero__meta">Email: chelzeum@gmail.com</p>
-          <p className="bio-hero__meta">Website: www.chelzeum.net</p>
-          <p className="bio-hero__meta">Instagram: instagram.com/chelzeum</p>
+          <div className="bio-hero__icon-row">
+            <a
+              href="mailto:chelzeum@gmail.com"
+              className="bio-hero__contact-icon"
+              aria-label="Email chelzeum@gmail.com"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <rect width="20" height="16" x="2" y="4" rx="2" />
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+              </svg>
+            </a>
+            <a
+              href="https://www.instagram.com/chelzeum/"
+              className="bio-hero__contact-icon"
+              aria-label="Instagram @chelzeum"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+              </svg>
+            </a>
+          </div>
+          
         </div>
         <div className="bio-hero__image-placeholder" role="img" aria-label="Artist portrait placeholder">
-          <span>Image Placeholder</span>
+          <span><img src="/assets/images/About.JPG" alt="Artist portrait" /></span>
         </div>
       </header>
 

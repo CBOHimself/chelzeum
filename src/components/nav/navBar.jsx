@@ -76,9 +76,9 @@ const navLinks = [
 ];
 
 const socials = [
-  { label: 'TikTok', icon: TikTokIcon, href: '#' },
-  { label: 'Instagram', icon: InstagramIcon, href: '#' },
-  { label: 'Twitter', icon: TwitterIcon, href: '#' },
+  { label: 'TikTok', icon: TikTokIcon, href: 'https://www.tiktok.com/@chellysmuse?_r=1&_t=ZS-964ltXHOvNY' },
+  { label: 'Instagram', icon: InstagramIcon, href: 'https://www.instagram.com/chelzeum?igsh=dm1ianBjbWV1czhp' },
+  { label: 'Twitter', icon: TwitterIcon, href: 'https://x.com/prettiestchelly' },
 ];
 
 const navVariants = {

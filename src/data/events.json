@@ -1,60 +1,5 @@
 [
-  {
-    "id": "ev-001",
-    "title": "SHIFT: Break Pattern, Build Perspective",
-    "date": "2025-05-10",
-    "endDate": null,
-    "venue": "Printed in Colour",
-    "city": "London, UK",
-    "type": "past",
-    "description": "Exhibited My Father's Daughter (2024) and EVE (2022).",
-    "longDescription": "Group exhibition at Printed in Colour, London. Chelsea exhibited My Father's Daughter (2024) and EVE (2022), continuing her exploration of memory, perspective, and identity through figurative and symbolic painting.",
-    "imageUrl": "/assets/events/botanical-ghosts-opening.jpg",
-    "inviteUrl": null,
-    "tags": ["Exhibition", "Painting"]
-  },
-  {
-    "id": "ev-002",
-    "title": "Round the Fire Stories",
-    "date": "2024-11-16",
-    "endDate": null,
-    "venue": "FirePit Gallery",
-    "city": "London, UK",
-    "type": "past",
-    "description": "Curated by Curtis Donovan. Exhibited True 2 Self.",
-    "longDescription": "Exhibition at FirePit Gallery, London, curated by Curtis Donovan. Chelsea exhibited True 2 Self, contributing to a wider narrative-led programme focused on contemporary personal storytelling through art.",
-    "imageUrl": "/assets/events/collective-nocturne.jpg",
-    "inviteUrl": null,
-    "tags": ["Exhibition", "Curated Show"]
-  },
-  {
-    "id": "ev-003",
-    "title": "Painting Open",
-    "date": "2023-09-22",
-    "endDate": null,
-    "venue": "No Format Gallery",
-    "city": "London, UK",
-    "type": "past",
-    "description": "Exhibited What the Heart Wants (2023), sold for £333.",
-    "longDescription": "Selected for Painting Open 2023 at No Format Gallery, London. Chelsea exhibited What the Heart Wants (2023), which sold during the show for £333.",
-    "imageUrl": "/assets/events/pratt-talk.jpg",
-    "inviteUrl": null,
-    "tags": ["Exhibition", "Painting Open"]
-  },
-  {
-    "id": "ev-004",
-    "title": "Painting Open",
-    "date": "2022-09-18",
-    "endDate": null,
-    "venue": "No Format Gallery",
-    "city": "London, UK",
-    "type": "past",
-    "description": "Exhibited Waiting for My Love to Come Home (2022).",
-    "longDescription": "Selected for Painting Open 2022 at No Format Gallery, London. Chelsea exhibited Waiting for My Love to Come Home (2022), an early piece in her evolving narrative-centered painting practice.",
-    "imageUrl": "/assets/events/winter-salon.jpg",
-    "inviteUrl": null,
-    "tags": ["Exhibition", "Painting Open"]
-  },
+
   {
     "id": "ev-005",
     "title": "Black History Month Sip and Paint: Reclaiming Narratives",
@@ -65,7 +10,7 @@
     "type": "past",
     "description": "Led creative workshop during Black History Month programming.",
     "longDescription": "Artist-led workshop hosted with Burson Roots. The session focused on reclaiming narratives through painting, helping participants explore identity and personal storytelling through guided visual prompts.",
-    "imageUrl": "/assets/events/dissolution-solo.jpg",
+    "imageUrl": "/assets/events/bhm_snp_rn.jpg",
     "inviteUrl": null,
     "tags": ["Workshop", "Community"]
   },
@@ -79,7 +24,7 @@
     "type": "past",
     "description": "Burson Roots workshop on storytelling, identity, and visual expression.",
     "longDescription": "Black History Month workshop delivered in collaboration with Burson Roots. Participants engaged in reflective painting exercises centered on memory, identity, and visual narrative making.",
-    "imageUrl": "/assets/events/bloom-print-release.jpg",
+    "imageUrl": "/assets/events/bhm_snp_sos.jpg",
     "inviteUrl": null,
     "tags": ["Workshop", "Black History Month"]
   },

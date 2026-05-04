@@ -402,7 +402,23 @@ a {
   line-height: 1.85;
   color: var(--ink-65);
   max-width: 340px;
-  margin-bottom: 32px;
+  margin-bottom: 16px;
+}
+.viewer-purchase {
+  display: inline-block;
+  margin-bottom: 28px;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-accent-rose);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-accent-rose) 55%, transparent);
+  padding-bottom: 2px;
+  text-decoration: none;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.viewer-purchase:hover {
+  color: var(--color-text-light);
+  border-color: var(--color-text-light);
 }
 
 .btn-outline {
@@ -838,6 +854,8 @@ a {
   display: grid;
   grid-template-columns: 260px 1fr;
   gap: 0;
+  min-height: 0;
+  min-width: 0;
   background: var(--color-bg-secondary);
   border: 1px solid rgba(120, 66, 71, 0.15);
   transition: border-color 0.25s ease, transform 0.3s ease;
@@ -862,6 +880,9 @@ a {
   position: relative;
   aspect-ratio: 4 / 3;
   overflow: hidden;
+  min-height: 0;
+  min-width: 0;
+  align-self: start;
   background: var(--color-bg-primary);
 }
 @media (max-width: 640px) {
@@ -870,7 +891,9 @@ a {
 .event-card__img {
   width: 100%;
   height: 100%;
+  max-width: 100%;
   object-fit: cover;
+  object-position: center;
   display: block;
   transition: transform 0.5s ease;
 }
@@ -903,6 +926,7 @@ a {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  min-width: 0;
   border-left: 1px solid rgba(120, 66, 71, 0.12);
 }
 @media (max-width: 640px) {
@@ -1556,14 +1580,18 @@ a {
       color-mix(in srgb, var(--color-bg-secondary) 80%, transparent) 0 18px,
       color-mix(in srgb, var(--color-bg-primary) 80%, transparent) 18px 36px
     );
-  display: grid;
-  place-items: center;
+  display: block;
+  overflow: hidden;
+  position: relative;
 }
-.events-hero-placeholder span {
-  font-size: 10px;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--ink-65);
+.events-hero-placeholder > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
 }
 .events-content-section {
   max-width: 980px;
@@ -1734,6 +1762,24 @@ a {
   font-size: 14px;
   letter-spacing: 0.08em;
   color: var(--ink-75);
+}
+.bio-hero__icon-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 4px 0 14px;
+}
+.bio-hero__contact-icon {
+  display: inline-flex;
+  color: var(--ink-65);
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+.bio-hero__contact-icon:hover {
+  color: var(--color-accent-rose);
+  transform: translateY(-1px);
+}
+.bio-hero__contact-icon svg {
+  display: block;
 }
 .bio-hero__meta {
   margin: 0 0 6px;

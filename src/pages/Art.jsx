@@ -22,27 +22,25 @@ export default function Art() {
     [artworksData]
   );
   const [activeId, setActiveId] = useState(null);
-  const [activeFilter, setActiveFilter] = useState("All");
+  const [activeYear, setActiveYear] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
 
-  const categories = useMemo(() => {
+  const years = useMemo(() => {
     const seen = new Set();
-    const order = [];
     for (const a of artworks) {
-      if (!seen.has(a.category)) {
-        seen.add(a.category);
-        order.push(a.category);
-      }
+      const y = a.year != null && a.year !== "" ? String(a.year) : null;
+      if (y) seen.add(y);
     }
-    return ["All", ...order];
+    const sorted = [...seen].sort((a, b) => Number(b) - Number(a));
+    return ["All", ...sorted];
   }, [artworks]);
 
   const filtered = useMemo(
     () =>
-      activeFilter === "All"
+      activeYear === "All"
         ? artworks
-        : artworks.filter((a) => a.category === activeFilter),
-    [artworks, activeFilter]
+        : artworks.filter((a) => String(a.year) === activeYear),
+    [artworks, activeYear]
   );
 
   const totalPages = Math.ceil(filtered.length / ARTWORKS_PER_PAGE);
@@ -74,8 +72,8 @@ export default function Art() {
     if (next) setActiveId(next.id);
   }
 
-  function handleFilterChange(cat) {
-    setActiveFilter(cat);
+  function handleYearChange(year) {
+    setActiveYear(year);
     setActiveId(null);
     setCurrentPage(1);
   }
@@ -99,11 +97,7 @@ export default function Art() {
         </div>
       </header>
 
-      <ArtworkFilters
-        categories={categories}
-        active={activeFilter}
-        onChange={handleFilterChange}
-      />
+      <ArtworkFilters years={years} active={activeYear} onChange={handleYearChange} />
 
       <ArtworkGrid
         artworks={paginated}

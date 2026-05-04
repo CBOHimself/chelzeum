@@ -7,7 +7,7 @@
     "dimensions": "40 × 40 in",
     "description": " ",
     "imageUrl": "/assets/artworks/waiting.jpg",
-    "category": "Seascapes"
+    "purchaseLink": ""
   },
   {
     "id": "aw-002",
@@ -17,7 +17,7 @@
     "dimensions": "81 x 61 cm",
     "description": "this is a painting about illusions. ",
     "imageUrl": "/assets/artworks/7-of-cups.jpg",
-    "category": "Abstract"
+    "purchaseLink": ""
   },
   {
     "id": "aw-003",
@@ -27,7 +27,7 @@
     "dimensions": "106 x 80 cm",
     "description": "Three persimmons rest on a rumpled linen cloth, their translucent orange skins catching afternoon light from an unseen window. A quiet meditation on patience and ripeness.",
     "imageUrl": "/assets/artworks/eve3.jpg",
-    "category": "Still Life"
+    "purchaseLink": ""
   },
   {
     "id": "aw-004",
@@ -37,7 +37,7 @@
     "dimensions": "106 x 80 cm",
     "description": " ",
     "imageUrl": "/assets/artworks/vulnerable.jpg",
-    "category": "Botanical"
+    "purchaseLink": ""
   },
   {
     "id": "aw-005",
@@ -47,7 +47,7 @@
     "dimensions": "",
     "description": "A lot of the floral elements within my personal work are derived from very few memories i have of my childhood, a lot of which i’ve repressed over the years. i have very distinct memories of the house i grew up in having a huge flower garden. as a child most of my artwork involved flowers, dogs & cats, and humans scribbled in a stick figuresque fashion. my inner child paintings aren’t specifically supposed to be \"good\", they are the abstract scribbles that support the soft, white underbelly of my surrealist and impressionist paintings. one cannot exist without the other. seek & destroy is about ruining reputations and definitions and expectations. a big part of my childhood was being a put together adult. read that again. my adulthood is about being a child again.",
     "imageUrl": "/assets/artworks/seek-and-destroy.jpg",
-    "category": "Abstract"
+    "purchaseLink": ""
   },
   {
     "id": "aw-007",
@@ -57,7 +57,7 @@
     "dimensions": "",
     "description": " ",
     "imageUrl": "/assets/artworks/yin-yang.jpg",
-    "category": "Seascapes"
+    "purchaseLink": ""
   },
   {
     "id": "aw-008",
@@ -67,7 +67,7 @@
     "dimensions": "30 × 80 cm",
     "description": "1/2 of my commissions of Cancer Research UK.",
     "imageUrl": "/assets/artworks/flower-dark-room.jpg",
-    "category": "Botanical"
+    "purchaseLink": ""
   },
   {
     "id": "aw-009",
@@ -77,7 +77,7 @@
     "dimensions": " ",
     "description": "Forcing orchids is my first abstract work of the year, intended to be created in one sitting without any expectations on the work.",
     "imageUrl": "/assets/artworks/forcing-orchids.jpg",
-    "category": "Abstract"
+    "purchaseLink": ""
   },
   {
     "id": "aw-010",
@@ -87,7 +87,7 @@
     "dimensions": "31 x 12 in",
     "description": " ",
     "imageUrl": "/assets/artworks/maneater.jpg",
-    "category": "Interiors"
+    "purchaseLink": "https://www.etsy.com/uk/listing/4479846435/original-oil-painting-maneaterlovergirl?sr_prefetch=0&pf_from=shop_home&ref=shop_home_active_3&logging_key=f915c365afc45497ed02dad019690d3641a3ba97%3A4479846435"
   },
   {
     "id": "aw-011",
@@ -97,7 +97,7 @@
     "dimensions": "24 × 36 in",
     "description": "took me about 30 minutes at a sip & paint in Accra - Republic Bar",
     "imageUrl": "/assets/artworks/jama.jpg",
-    "category": "Seascapes"
+    "purchaseLink": "https://www.etsy.com/uk/listing/1496560107/jama-2023-downloadable-print?sr_prefetch=0&pf_from=shop_home&ref=shop_home_active_4&dd=1&logging_key=7c538fdd898b2fd22e0a11145665d18950f9ab8d%3A1496560107"
   },
   {
     "id": "aw-012",
@@ -107,7 +107,7 @@
     "dimensions": "100 x 72 cm ",
     "description": "A Commission for J. & S. Morris.<br>  2/2 of my Cancer Research UK Commissions.",
     "imageUrl": "/assets/artworks/planets-collide.jpg",
-    "category": "Mixed Media"
+    "purchaseLink": ""
   },
   {
     "id": "aw-013",
@@ -117,7 +117,7 @@
     "dimensions": "30 cm diameter",
     "description": " ",
     "imageUrl": "/assets/artworks/not-giving-a-f.jpg",
-    "category": "Mixed Media"
+    "purchaseLink": "https://www.etsy.com/uk/listing/4479858790/original-oil-painting-the-subtle-art-of?sr_prefetch=0&pf_from=shop_home&ref=shop_home_active_1&logging_key=e3797f951b69c4f1159cf7c69ac1e038fef34a10%3A4479858790"
   },
   {
     "id": "aw-014",
@@ -125,8 +125,8 @@
     "year": 2025,
     "medium": "Oil on Canvas",
     "dimensions": "91 x 100 cm",
-    "description": " ",
+    "description": "This work speaks to the feeling of being suspended in time while the world continues forward, unchanged, indifferent. It is both an expression of mourning and a reflection on the enduring bond between parent and child.",
     "imageUrl": "/assets/artworks/fathers-daughter.jpg",
-    "category": "Still Life"
+    "purchaseLink": "https://www.etsy.com/uk/listing/4479849679/original-oil-painting-my-fathers?sr_prefetch=0&pf_from=shop_home&ref=shop_home_active_2&logging_key=468e1800db347eb3e21460275dbd34f5ceeb2135%3A4479849679"
   }
 ]
