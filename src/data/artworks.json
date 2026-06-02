@@ -144,9 +144,19 @@
       "title": "1000 Ways to Die",
       "year": 2026,
       "medium": "Oil on Canvas",
-      "dimensions": "40 x 40 cm",
+      "dimensions": "40 x 40 in",
       "description": " ",
       "imageUrl": "/assets/artworks/1000-ways-to-die.jpg",
       "purchaseLink": "https://www.etsy.com/uk/listing/4479858790/original-oil-painting-the-subtle-art-of?sr_prefetch=0&pf_from=shop_home&ref=shop_home_active_1&logging_key=e3797f951b69c4f1159cf7c69ac1e038fef34a10%3A4479858790"
+    },
+    {
+      "id": "aw-017",
+      "title": "Love Survives",
+      "year": 2024,
+      "medium": "Oil on Linen",
+      "dimensions": "100 x 135 cm",
+      "description": " ",
+      "imageUrl": "/assets/artworks/love-survives.jpg",
+      "purchaseLink": " "
     }
 ]

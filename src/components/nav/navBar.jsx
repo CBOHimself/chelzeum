@@ -3,6 +3,7 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaInstagram, FaTiktok, FaXTwitter } from 'react-icons/fa6';
 import { SiEtsy } from 'react-icons/si';
+import { FaShop } from 'react-icons/fa6';
 
 const THEME_STORAGE_KEY = 'chelzeum-theme';
 
@@ -63,7 +64,7 @@ const socials = [
   { label: 'TikTok', icon: FaTiktok, href: 'https://www.tiktok.com/@chellysmuse?_r=1&_t=ZS-964ltXHOvNY' },
   { label: 'Instagram', icon: FaInstagram, href: 'https://www.instagram.com/chelzeum?igsh=dm1ianBjbWV1czhp' },
   { label: 'Twitter', icon: FaXTwitter, href: 'https://x.com/prettiestchelly' },
-  { label: 'Etsy', icon: SiEtsy, href: 'https://www.etsy.com/uk/shop/CHELZEUM' },
+  { label: 'Shop', icon: FaShop, href: 'https://www.etsy.com/uk/shop/CHELZEUM' },
 ];
 
 const navVariants = {
