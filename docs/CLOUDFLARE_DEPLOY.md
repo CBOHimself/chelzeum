@@ -50,19 +50,56 @@ Until the domain is verified, you can test with Resend’s sandbox sender:
 1. Push this project to **GitHub** (or GitLab).
 2. Cloudflare Dashboard → **Workers & Pages** → **Create** → **Pages** → **Connect to Git**.
 3. Select the `chelzeum` repository.
-4. **Build settings**:
-
-   | Setting | Value |
-   |---------|--------|
-   | Framework preset | None (or Vite) |
-   | Build command | `npm run build` |
-   | Build output directory | `dist` |
-   | Root directory | `/` (repo root) |
-   | **Deploy command** | **Leave empty** (do not use `wrangler pages deploy`) |
-
-   Cloudflare uploads `dist/` and bundles `functions/` automatically after `npm run build`. A custom deploy command causes Wrangler to fail in CI.
+4. Configure **Build settings** (see below — depends which UI you see).
 
 5. **Do not deploy yet** — set environment variables first (Part 4).
+
+### Build settings — standard Pages UI (use this)
+
+This repo has **no `wrangler.toml`**, so the dashboard should show the normal fields:
+
+| Setting | Value |
+|---------|--------|
+| Framework preset | **None** or **Vite** |
+| **Build command** | `npm run build` |
+| **Build output directory** | `dist` |
+| Root directory | `/` (repo root) |
+| **Deploy command** | **Empty** — leave blank |
+
+Cloudflare then uploads `dist/` and bundles the `functions/` folder automatically. You do **not** need `wrangler pages deploy` in CI.
+
+### Build settings — Wrangler-only UI (if output dir is hidden)
+
+If you **do not** see “Build output directory” and **Deploy command** cannot be empty, Cloudflare is treating the project as **Wrangler-managed** (usually because a `wrangler.toml` with `pages_build_output_dir` was in the repo before).
+
+**Fix (recommended):**
+
+1. Pull the latest repo (no `wrangler.toml`).
+2. Pages → **Settings** → **Build** → look for **“Use Wrangler configuration file”** / **V2 build** and **turn it off** if that toggle exists.
+3. Or: **Deployments** → open last failed deploy → note settings, then **Settings** → **Build** → **Reset** / re-enter:
+   - Build command: `npm run build`
+   - Build output directory: `dist`
+4. If **Deploy command** still cannot be empty, set it to a no-op (not Wrangler):
+
+   ```
+   exit 0
+   ```
+
+   That satisfies the field without running `wrangler pages deploy` again.
+
+**Do not** use `npx wrangler pages deploy` unless you intentionally want Wrangler-managed deploys and maintain `wrangler.toml` with `pages_build_output_dir = "./dist"`.
+
+### If you prefer Wrangler-managed deploys
+
+Only if you want the deploy command to run Wrangler, add back `wrangler.toml`:
+
+```toml
+name = "chelzeum"
+compatibility_date = "2024-09-23"
+pages_build_output_dir = "./dist"
+```
+
+Then set **Build command** `npm run build` and **Deploy command** `npx wrangler pages deploy`. The output directory lives in `wrangler.toml` as `./dist` (the dashboard field stays hidden — that is expected).
 
 ---
 
@@ -154,7 +191,8 @@ For local Turnstile, keep `localhost` in the widget hostnames.
 
 | Symptom | Fix |
 |---------|-----|
-| Build fails: `Failed: error occurred while running deploy command` / Wrangler logs | Clear **Deploy command** in Pages settings; only use **Build command** `npm run build` and output `dist` |
+| No “Build output directory” field; Deploy command required | Wrangler-managed project — remove `wrangler.toml` from repo OR use `exit 0` as deploy command; see Part 3 |
+| Build fails: `Failed: error occurred while running deploy command` / Wrangler logs | Stop using `wrangler pages deploy` in deploy command; use `exit 0` or leave deploy empty after removing `wrangler.toml` |
 | Build fails: `Could not resolve "crypto"` / nodemailer | Pull latest repo (Gmail removed from Functions); redeploy |
 | Turnstile widget error / “invalid site key” | `VITE_TURNSTILE_SITE_KEY` wrong or hostname not listed in Turnstile |
 | Submit returns 404 on `/api/subscribe` | Redeploy after `functions/` exists; check build output includes Functions |
@@ -172,7 +210,7 @@ For local Turnstile, keep `localhost` in the widget hostnames.
 |------|---------|
 | `functions/api/subscribe.js` | Pages Function route `/api/subscribe` |
 | `functions/_lib/handleSubscribe.js` | Turnstile + email logic |
-| `wrangler.toml` | Pages project config |
+| (no `wrangler.toml` in repo) | Keeps dashboard build fields editable; use `npm run pages:dev` locally |
 | `.dev.vars` | Local function secrets (gitignored) |
 | `.env` | Local Vite `VITE_*` only |
 | `public/_redirects` | SPA fallback |
