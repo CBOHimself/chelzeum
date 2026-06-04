@@ -47,59 +47,51 @@ Until the domain is verified, you can test with Resend’s sandbox sender:
 
 ## Part 3 — Connect the repo to Cloudflare Pages
 
+### First: confirm this is a **Pages** project (not Workers)
+
+When creating in the dashboard, click the **Pages** tab — not **Workers**.  
+[Community thread](https://community.cloudflare.com/t/cant-find-build-output-directory-option/769616): the **Workers** flow only shows **Build command** / **Deploy command** and **no** “Build output directory”.
+
+If you accidentally created a **Worker**, create a new project: **Workers & Pages → Create → Pages → Connect to Git**.
+
+---
+
+### Build settings — your UI (3 fields only)
+
+If you only see:
+
+- **Build command**
+- **Deploy command**
+- **Non-production branch deploy command**
+
+then **Build output directory is not missing** — it is defined in **`wrangler.toml`** as `pages_build_output_dir = "./dist"`. That is expected for this Cloudflare build system.
+
+Use these **exact** values:
+
+| Dashboard field | Value |
+|-----------------|--------|
+| **Build command** | `npm run build` |
+| **Deploy command** | `npm run deploy` |
+| **Non-production branch deploy command** | `npm run deploy` |
+
+`npm run deploy` runs `wrangler pages deploy`, which reads `wrangler.toml` and uploads `./dist` plus `functions/`.
+
+**Important:** In `wrangler.toml`, set `name` to match your **Pages project name** in the dashboard (default in repo: `chelzeum`). If your project is named differently, edit that line before deploying.
+
 1. Push this project to **GitHub** (or GitLab).
-2. Cloudflare Dashboard → **Workers & Pages** → **Create** → **Pages** → **Connect to Git**.
-3. Select the `chelzeum` repository.
-4. Configure **Build settings** (see below — depends which UI you see).
+2. **Workers & Pages** → **Create** → **Pages** tab → **Connect to Git** → select repo.
+3. Enter the three commands in the table above.
+4. Set environment variables (Part 4) before relying on signup email.
 
-5. **Do not deploy yet** — set environment variables first (Part 4).
-
-### Build settings — standard Pages UI (use this)
-
-This repo has **no `wrangler.toml`**, so the dashboard should show the normal fields:
+### Build settings — classic Pages UI (if you see “Build output directory”)
 
 | Setting | Value |
 |---------|--------|
-| Framework preset | **None** or **Vite** |
 | **Build command** | `npm run build` |
 | **Build output directory** | `dist` |
-| Root directory | `/` (repo root) |
-| **Deploy command** | **Empty** — leave blank |
+| **Deploy command** | leave **empty** |
 
-Cloudflare then uploads `dist/` and bundles the `functions/` folder automatically. You do **not** need `wrangler pages deploy` in CI.
-
-### Build settings — Wrangler-only UI (if output dir is hidden)
-
-If you **do not** see “Build output directory” and **Deploy command** cannot be empty, Cloudflare is treating the project as **Wrangler-managed** (usually because a `wrangler.toml` with `pages_build_output_dir` was in the repo before).
-
-**Fix (recommended):**
-
-1. Pull the latest repo (no `wrangler.toml`).
-2. Pages → **Settings** → **Build** → look for **“Use Wrangler configuration file”** / **V2 build** and **turn it off** if that toggle exists.
-3. Or: **Deployments** → open last failed deploy → note settings, then **Settings** → **Build** → **Reset** / re-enter:
-   - Build command: `npm run build`
-   - Build output directory: `dist`
-4. If **Deploy command** still cannot be empty, set it to a no-op (not Wrangler):
-
-   ```
-   exit 0
-   ```
-
-   That satisfies the field without running `wrangler pages deploy` again.
-
-**Do not** use `npx wrangler pages deploy` unless you intentionally want Wrangler-managed deploys and maintain `wrangler.toml` with `pages_build_output_dir = "./dist"`.
-
-### If you prefer Wrangler-managed deploys
-
-Only if you want the deploy command to run Wrangler, add back `wrangler.toml`:
-
-```toml
-name = "chelzeum"
-compatibility_date = "2024-09-23"
-pages_build_output_dir = "./dist"
-```
-
-Then set **Build command** `npm run build` and **Deploy command** `npx wrangler pages deploy`. The output directory lives in `wrangler.toml` as `./dist` (the dashboard field stays hidden — that is expected).
+You can remove `pages_build_output_dir` from `wrangler.toml` in that case (or delete `wrangler.toml` entirely).
 
 ---
 
@@ -191,8 +183,9 @@ For local Turnstile, keep `localhost` in the widget hostnames.
 
 | Symptom | Fix |
 |---------|-----|
-| No “Build output directory” field; Deploy command required | Wrangler-managed project — remove `wrangler.toml` from repo OR use `exit 0` as deploy command; see Part 3 |
-| Build fails: `Failed: error occurred while running deploy command` / Wrangler logs | Stop using `wrangler pages deploy` in deploy command; use `exit 0` or leave deploy empty after removing `wrangler.toml` |
+| No “Build output directory” field | Normal for Workers-style Pages builds — output is `pages_build_output_dir = "./dist"` in `wrangler.toml`; see Part 3 |
+| Deploy command required | Use `npm run deploy` (not blank) |
+| Build fails on deploy step | Ensure `name` in `wrangler.toml` matches dashboard project name; ensure latest code (no nodemailer in functions) |
 | Build fails: `Could not resolve "crypto"` / nodemailer | Pull latest repo (Gmail removed from Functions); redeploy |
 | Turnstile widget error / “invalid site key” | `VITE_TURNSTILE_SITE_KEY` wrong or hostname not listed in Turnstile |
 | Submit returns 404 on `/api/subscribe` | Redeploy after `functions/` exists; check build output includes Functions |
@@ -210,7 +203,7 @@ For local Turnstile, keep `localhost` in the widget hostnames.
 |------|---------|
 | `functions/api/subscribe.js` | Pages Function route `/api/subscribe` |
 | `functions/_lib/handleSubscribe.js` | Turnstile + email logic |
-| (no `wrangler.toml` in repo) | Keeps dashboard build fields editable; use `npm run pages:dev` locally |
+| `wrangler.toml` | `pages_build_output_dir = "./dist"` replaces the missing dashboard output field |
 | `.dev.vars` | Local function secrets (gitignored) |
 | `.env` | Local Vite `VITE_*` only |
 | `public/_redirects` | SPA fallback |
