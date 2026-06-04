@@ -71,10 +71,12 @@ Use these **exact** values:
 | Dashboard field | Value |
 |-----------------|--------|
 | **Build command** | `npm run build` |
-| **Deploy command** | `npm run deploy` |
-| **Non-production branch deploy command** | `npm run deploy` |
+| **Deploy command** | `bash scripts/pages-deploy.sh` |
+| **Non-production branch deploy command** | `bash scripts/pages-deploy.sh` |
 
-`npm run deploy` runs `wrangler pages deploy`, which reads `wrangler.toml` and uploads `./dist` plus `functions/`.
+(You can also use `npm run deploy` — same script.)
+
+The script runs `wrangler pages deploy`, which reads `wrangler.toml` and uploads `./dist` plus `functions/`. On Cloudflare’s build servers it **removes** any `CLOUDFLARE_API_TOKEN` you added in the dashboard so the build system’s own token is used (see troubleshooting below).
 
 **Important:** In `wrangler.toml`, set `name` to match your **Pages project name** in the dashboard (default in repo: `chelzeum`). If your project is named differently, edit that line before deploying.
 
@@ -185,7 +187,8 @@ For local Turnstile, keep `localhost` in the widget hostnames.
 |---------|-----|
 | No “Build output directory” field | Normal for Workers-style Pages builds — output is `pages_build_output_dir = "./dist"` in `wrangler.toml`; see Part 3 |
 | Deploy command required | Use `npm run deploy` (not blank) |
-| Build fails on deploy step | Ensure `name` in `wrangler.toml` matches dashboard project name; ensure latest code (no nodemailer in functions) |
+| Build fails on deploy step; log shows `Super Administrator` then deploy failed | **Remove** `CLOUDFLARE_API_TOKEN` / `CLOUDFLARE_ACCOUNT_ID` from Pages **Environment variables** (they override CI auth). Use `bash scripts/pages-deploy.sh` as deploy command. Match `name` in `wrangler.toml` to project name. |
+| Build fails on deploy step (other) | Ensure latest code (no nodemailer); add `account_id` to `wrangler.toml` from dashboard URL |
 | Build fails: `Could not resolve "crypto"` / nodemailer | Pull latest repo (Gmail removed from Functions); redeploy |
 | Turnstile widget error / “invalid site key” | `VITE_TURNSTILE_SITE_KEY` wrong or hostname not listed in Turnstile |
 | Submit returns 404 on `/api/subscribe` | Redeploy after `functions/` exists; check build output includes Functions |

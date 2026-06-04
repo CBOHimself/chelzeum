@@ -1,5 +1,6 @@
 # Cloudflare Pages (Workers-style build UI): output dir is HERE, not in the dashboard.
-# "name" must match your Pages project name in Workers & Pages (e.g. chelzeum).
+# "name" must match your Pages project name in Workers & Pages exactly.
+# Optional: account_id = "your-cloudflare-account-id"
 name = "chelzeum"
 compatibility_date = "2024-09-23"
 pages_build_output_dir = "./dist"
