@@ -67,37 +67,10 @@ async function sendViaResend(env, { name, phone, email }) {
   return true;
 }
 
-async function sendViaGmail(env, { name, phone, email }) {
-  const user = env.GMAIL_USER;
-  const pass = env.GMAIL_APP_PASSWORD;
-  if (!user || !pass) return false;
-
-  const nodemailer = await import("nodemailer");
-  const transport = nodemailer.createTransport({
-    service: "gmail",
-    auth: { user, pass },
-  });
-
-  const to = env.SIGNUP_TO_EMAIL || "chelzeum@gmail.com";
-  const html = buildSignupNotificationHtml({ name, phone, email });
-  const text = buildSignupNotificationText({ name, phone, email });
-
-  await transport.sendMail({
-    from: `"Chelzeum Signups" <${user}>`,
-    to,
-    replyTo: email,
-    subject: `Chelzeum signup — ${name}`,
-    text,
-    html,
-  });
-  return true;
-}
-
 async function sendSignupEmail(env, payload) {
   if (await sendViaResend(env, payload)) return;
-  if (await sendViaGmail(env, payload)) return;
   throw new Error(
-    "Email is not configured. Set RESEND_API_KEY (recommended) or GMAIL_USER + GMAIL_APP_PASSWORD in Cloudflare."
+    "Email is not configured. Set RESEND_API_KEY in Cloudflare Pages secrets."
   );
 }
 

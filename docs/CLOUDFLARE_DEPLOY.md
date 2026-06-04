@@ -11,7 +11,7 @@ Everything runs on **Cloudflare Pages**: static Vite build at `chelzeum.net` and
 | React site | Cloudflare Pages (`dist/` after `npm run build`) |
 | Signup API | Pages Function → `functions/api/subscribe.js` |
 | Captcha | Cloudflare **Turnstile** (site key in build, secret in Pages) |
-| Email | **Resend** (recommended) or Gmail app password (fallback) |
+| Email | **Resend** (HTTP API — required on Cloudflare) |
 
 ---
 
@@ -30,7 +30,7 @@ Everything runs on **Cloudflare Pages**: static Vite build at `chelzeum.net` and
 
 ## Part 2 — Email with Resend (recommended on Cloudflare)
 
-Gmail SMTP is awkward on Workers. **Resend** uses HTTP and works reliably on Pages Functions. Mail still arrives at **chelzeum@gmail.com**.
+**Resend** uses HTTP and works on Pages Functions (Gmail/nodemailer does not bundle on Workers). Mail still arrives at **chelzeum@gmail.com**.
 
 1. Sign up at [resend.com](https://resend.com).
 2. **API Keys** → Create API key → copy it (`re_...`).
@@ -58,6 +58,9 @@ Until the domain is verified, you can test with Resend’s sandbox sender:
    | Build command | `npm run build` |
    | Build output directory | `dist` |
    | Root directory | `/` (repo root) |
+   | **Deploy command** | **Leave empty** (do not use `wrangler pages deploy`) |
+
+   Cloudflare uploads `dist/` and bundles `functions/` automatically after `npm run build`. A custom deploy command causes Wrangler to fail in CI.
 
 5. **Do not deploy yet** — set environment variables first (Part 4).
 
@@ -84,13 +87,6 @@ In your Pages project → **Settings** → **Environment variables**.
 | `RESEND_API_KEY` | Resend `re_...` key |
 | `RESEND_FROM_EMAIL` | e.g. `Chelzeum Signups <signup@chelzeum.net>` |
 | `SIGNUP_TO_EMAIL` | `chelzeum@gmail.com` |
-
-**Optional** (Gmail fallback; skip if you use Resend):
-
-| Name | Notes |
-|------|--------|
-| `GMAIL_USER` | `chelzeum@gmail.com` |
-| `GMAIL_APP_PASSWORD` | Google [App Password](https://myaccount.google.com/apppasswords) |
 
 Click **Save**, then trigger a **new deployment** (Deployments → Retry deployment or push a commit).
 
@@ -158,10 +154,12 @@ For local Turnstile, keep `localhost` in the widget hostnames.
 
 | Symptom | Fix |
 |---------|-----|
+| Build fails: `Failed: error occurred while running deploy command` / Wrangler logs | Clear **Deploy command** in Pages settings; only use **Build command** `npm run build` and output `dist` |
+| Build fails: `Could not resolve "crypto"` / nodemailer | Pull latest repo (Gmail removed from Functions); redeploy |
 | Turnstile widget error / “invalid site key” | `VITE_TURNSTILE_SITE_KEY` wrong or hostname not listed in Turnstile |
 | Submit returns 404 on `/api/subscribe` | Redeploy after `functions/` exists; check build output includes Functions |
 | “Captcha failed” | `TURNSTILE_SECRET_KEY` missing or mismatched pair with site key |
-| “Email is not configured” | Add `RESEND_API_KEY` (and redeploy) or Gmail vars |
+| “Email is not configured” | Add `RESEND_API_KEY` (encrypted secret) and redeploy |
 | Resend 403 / domain error | Verify domain in Resend; fix `RESEND_FROM_EMAIL` to use that domain |
 | SPA routes 404 on refresh | Ensure `public/_redirects` and `public/_routes.json` are in `dist` (they live under `public/` and copy on build) |
 | Popup dismissed forever | `localStorage.removeItem('chelzeum-signup-dismissed')` |
@@ -174,7 +172,7 @@ For local Turnstile, keep `localhost` in the widget hostnames.
 |------|---------|
 | `functions/api/subscribe.js` | Pages Function route `/api/subscribe` |
 | `functions/_lib/handleSubscribe.js` | Turnstile + email logic |
-| `wrangler.toml` | Pages + `nodejs_compat` for optional Gmail |
+| `wrangler.toml` | Pages project config |
 | `.dev.vars` | Local function secrets (gitignored) |
 | `.env` | Local Vite `VITE_*` only |
 | `public/_redirects` | SPA fallback |
