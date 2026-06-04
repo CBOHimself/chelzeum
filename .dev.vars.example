@@ -1,0 +1,11 @@
+# Local secrets for: npx wrangler pages dev dist
+# Copy to .dev.vars (gitignored) — do not commit real values.
+
+TURNSTILE_SECRET_KEY=
+RESEND_API_KEY=
+RESEND_FROM_EMAIL=Chelzeum Signups <onboarding@resend.dev>
+SIGNUP_TO_EMAIL=chelzeum@gmail.com
+
+# Optional fallback (Gmail SMTP; less reliable on Workers than Resend)
+GMAIL_USER=
+GMAIL_APP_PASSWORD=

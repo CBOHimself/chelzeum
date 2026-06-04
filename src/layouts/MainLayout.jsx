@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import ChelzeumNav from '../components/nav/navBar';
+import SignupPopup from '../components/SignupPopup/SignupPopup';
 
 const STATIC_PAGE_TITLES = {
   '/': 'Home',
@@ -26,6 +27,7 @@ export default function MainLayout() {
       <main>
         <Outlet />
       </main>
+      <SignupPopup />
     </>
   );
 }
