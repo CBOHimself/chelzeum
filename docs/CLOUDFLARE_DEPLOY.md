@@ -58,10 +58,13 @@ Must match the project name in **Workers & Pages** exactly. Two custom domains o
 ## Local dev
 
 ```bash
-cp .env.example .env          # VITE_TURNSTILE_SITE_KEY
-cp .dev.vars.example .dev.vars  # secrets for /api/subscribe locally
-npm run pages:dev             # build + wrangler dev (site + API)
+cp .env.example .env              # VITE_* + RESEND_API_KEY, TURNSTILE_SECRET_KEY
+cp .dev.vars.example .dev.vars    # optional overrides for wrangler dev
+npm run dev                       # Vite on :5173 — includes POST /api/subscribe
+npm run pages:dev                 # build + wrangler dev (production-like stack)
 ```
+
+`npm run dev` serves `/api/subscribe` via the same `handleSubscribe` handler as production. Add `RESEND_API_KEY` to `.env` so signups email **chelzeum@gmail.com** (via Resend → `SIGNUP_TO_EMAIL`).
 
 ---
 
@@ -73,7 +76,9 @@ npm run pages:dev             # build + wrangler dev (site + API)
 | `wrangler deploy` says missing entry-point / assets | Pull latest `main` (Worker + `[assets] directory = "./dist"`) |
 | `Project not found` on `wrangler pages deploy` | You have a **Worker** project — use `wrangler deploy`, not `pages deploy` |
 | Signup 404 | Worker `worker/index.js` must be deployed; check `VITE_SIGNUP_API_URL=/api/subscribe` |
-| Turnstile error **110200** | Domain not authorized for that **site key**. On production, add `chelzeum.net` / `www.chelzeum.net` to the widget that owns your `VITE_TURNSTILE_SITE_KEY`. For **local dev**, use Cloudflare test keys instead (automatic in `npm run dev`; set `TURNSTILE_ALLOW_TEST_KEYS=true` + test secret in `.dev.vars` for `npm run pages:dev`). Use `http://localhost`, not `127.0.0.1`. To test production keys locally, set `VITE_TURNSTILE_USE_PRODUCTION=true` in `.env`. |
+| Turnstile error **110200** | Domain not authorized for that **site key**. Add `chelzeum.net` / `localhost` to the widget that owns your `VITE_TURNSTILE_SITE_KEY`. Local dev auto-uses Cloudflare test keys in `npm run dev`. |
+| Signup captcha passes then fails on submit | Turnstile tokens are **one-time use** — the form now resets the widget after errors. On production, ensure `TURNSTILE_SECRET_KEY` is set in Cloudflare **secrets** and pairs with `VITE_TURNSTILE_SITE_KEY` (same widget). Local dev uses test site key + test secret (see `.dev.vars.example`). |
+| Resend **403** / “your own email address” | Resend test sender (`onboarding@resend.dev`) only delivers to **your Resend login email**. Set `SIGNUP_TO_EMAIL` to that address until [chelzeum.net is verified](https://resend.com/domains), then use `RESEND_FROM_EMAIL=Chelzeum Signups <signup@chelzeum.net>` and `SIGNUP_TO_EMAIL=chelzeum@gmail.com`. |
 
 ---
 

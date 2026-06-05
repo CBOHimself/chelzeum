@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Turnstile } from "@marsidev/react-turnstile";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -67,6 +67,7 @@ export default function SignupPopup() {
   const [mountTurnstile, setMountTurnstile] = useState(false);
   const [status, setStatus] = useState({ type: "idle", message: "" });
   const [submitting, setSubmitting] = useState(false);
+  const turnstileRef = useRef(null);
 
   const useTurnstile = isTurnstileSiteKey(TURNSTILE_SITE_KEY) && !turnstileUnavailable;
   const useMathCaptcha = !useTurnstile;
@@ -149,11 +150,19 @@ export default function SignupPopup() {
     [form, turnstileToken, useTurnstile, useMathCaptcha, captchaChallenge]
   );
 
+  function resetTurnstileWidget() {
+    setTurnstileToken("");
+    turnstileRef.current?.reset();
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
     setStatus({ type: "idle", message: "" });
 
-    if (useTurnstile && !turnstileToken) {
+    const activeTurnstileToken =
+      useTurnstile && (turnstileRef.current?.getResponse() || turnstileToken);
+
+    if (useTurnstile && !activeTurnstileToken) {
       setStatus({ type: "error", message: "Please complete the captcha." });
       return;
     }
@@ -165,12 +174,16 @@ export default function SignupPopup() {
       return;
     }
 
+    const submitPayload = useTurnstile
+      ? { ...payload, turnstileToken: activeTurnstileToken }
+      : payload;
+
     setSubmitting(true);
     try {
       const res = await fetch(SIGNUP_API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(submitPayload),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
@@ -182,11 +195,16 @@ export default function SignupPopup() {
       });
       if (!IS_TEST_MODE) {
         setForm({ name: "", phone: "", email: "", captcha: "" });
-        setTurnstileToken("");
+        resetTurnstileWidget();
         setCaptchaChallenge(makeCaptcha());
         window.setTimeout(dismiss, 2200);
+      } else {
+        resetTurnstileWidget();
       }
     } catch (err) {
+      if (useTurnstile) {
+        resetTurnstileWidget();
+      }
       setStatus({
         type: "error",
         message: err.message || "Something went wrong. Please try again.",
@@ -286,6 +304,7 @@ export default function SignupPopup() {
               {useTurnstile && mountTurnstile ? (
                 <div className="signup-popup__captcha">
                   <Turnstile
+                    ref={turnstileRef}
                     siteKey={TURNSTILE_SITE_KEY}
                     onSuccess={setTurnstileToken}
                     onExpire={() => setTurnstileToken("")}

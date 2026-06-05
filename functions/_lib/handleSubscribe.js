@@ -11,6 +11,15 @@ function json(data, status = 200) {
 
 const TURNSTILE_TEST_SECRET = "1x0000000000000000000000000000000AA";
 
+function isLocalHost(request) {
+  const host = request.headers.get("Host") || "";
+  return /^localhost(:\d+)?$/i.test(host) || /^127\.0\.0\.1(:\d+)?$/.test(host);
+}
+
+function allowTestTurnstileKeys(request, env) {
+  return env.TURNSTILE_ALLOW_TEST_KEYS === "true" || isLocalHost(request);
+}
+
 async function verifyTurnstileWithSecret(secret, token, remoteip) {
   const res = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
     method: "POST",
@@ -18,20 +27,40 @@ async function verifyTurnstileWithSecret(secret, token, remoteip) {
     body: JSON.stringify({ secret, response: token, remoteip }),
   });
   const data = await res.json();
-  return data.success ? { ok: true } : { ok: false, error: "Captcha verification failed" };
+  if (data.success) return { ok: true };
+  console.error("Turnstile siteverify failed", data["error-codes"] || data);
+  return {
+    ok: false,
+    error: "Captcha verification failed. Complete the captcha again and resubmit.",
+    errorCodes: data["error-codes"],
+  };
 }
 
-async function verifyTurnstile(token, remoteip, env) {
-  const secret = env.TURNSTILE_SECRET_KEY;
-  if (!secret) return { ok: true, skipped: true };
+async function verifyTurnstile(token, remoteip, env, request) {
   if (!token) return { ok: false, error: "Captcha token missing" };
+
+  const secret = env.TURNSTILE_SECRET_KEY;
+  if (!secret) {
+    return {
+      ok: false,
+      error:
+        "Captcha is not configured on the server. Set TURNSTILE_SECRET_KEY in Cloudflare secrets.",
+    };
+  }
 
   const primary = await verifyTurnstileWithSecret(secret, token, remoteip);
   if (primary.ok) return primary;
 
-  if (env.TURNSTILE_ALLOW_TEST_KEYS === "true" && secret !== TURNSTILE_TEST_SECRET) {
+  if (allowTestTurnstileKeys(request, env) && secret !== TURNSTILE_TEST_SECRET) {
     const fallback = await verifyTurnstileWithSecret(TURNSTILE_TEST_SECRET, token, remoteip);
     if (fallback.ok) return fallback;
+  }
+
+  if (primary.errorCodes?.includes("timeout-or-duplicate")) {
+    return {
+      ok: false,
+      error: "Captcha expired or was already used. Complete it again and resubmit.",
+    };
   }
 
   return primary;
@@ -76,7 +105,23 @@ async function sendViaResend(env, { name, phone, email }) {
   if (!res.ok) {
     const detail = await res.text();
     console.error("Resend error", res.status, detail);
-    throw new Error("Email provider rejected the message.");
+    let message = "Email provider rejected the message.";
+    try {
+      const parsed = JSON.parse(detail);
+      if (parsed.message) {
+        message = parsed.message;
+        if (/your own email address/i.test(parsed.message)) {
+          message +=
+            " Until chelzeum.net is verified in Resend, set SIGNUP_TO_EMAIL to your Resend login email (charlesbryanoware@hotmail.com).";
+        } else if (/verify a domain/i.test(parsed.message)) {
+          message +=
+            " Verify chelzeum.net at https://resend.com/domains and set RESEND_FROM_EMAIL to an address on that domain.";
+        }
+      }
+    } catch {
+      /* keep default message */
+    }
+    throw new Error(message);
   }
   return true;
 }
@@ -84,7 +129,7 @@ async function sendViaResend(env, { name, phone, email }) {
 async function sendSignupEmail(env, payload) {
   if (await sendViaResend(env, payload)) return;
   throw new Error(
-    "Email is not configured. Set RESEND_API_KEY in Cloudflare Pages secrets."
+    "Email is not configured. Set RESEND_API_KEY (delivers to SIGNUP_TO_EMAIL, e.g. chelzeum@gmail.com)."
   );
 }
 
@@ -109,15 +154,15 @@ export async function handleSubscribe(request, env) {
     }
 
     const remoteip = request.headers.get("CF-Connecting-IP") || undefined;
-    const turnstile = await verifyTurnstile(turnstileToken, remoteip, env);
     const mathOk = verifyMathCaptcha({ captchaA, captchaB, captchaAnswer });
 
-    if (turnstile.ok && !turnstile.skipped) {
-      /* Turnstile verified */
+    if (turnstileToken) {
+      const turnstile = await verifyTurnstile(turnstileToken, remoteip, env, request);
+      if (!turnstile.ok) {
+        return json({ error: turnstile.error || "Captcha verification failed" }, 400);
+      }
     } else if (mathOk) {
-      /* Math captcha fallback (e.g. Turnstile widget unavailable) */
-    } else if (turnstileToken && env.TURNSTILE_SECRET_KEY) {
-      return json({ error: turnstile.error || "Captcha verification failed" }, 400);
+      /* Math captcha fallback */
     } else if (env.TURNSTILE_SECRET_KEY) {
       return json({ error: "Please complete the captcha." }, 400);
     } else {
