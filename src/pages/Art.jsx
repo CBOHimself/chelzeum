@@ -95,6 +95,14 @@ export default function Art() {
           </p>
           <h1 className="art-page-title">Artworks</h1>
         </div>
+        <a
+          href="https://www.etsy.com/uk/shop/CHELZEUM"
+          className="art-page-shop-btn"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Shop Now
+        </a>
       </header>
 
       <ArtworkFilters years={years} active={activeYear} onChange={handleYearChange} />

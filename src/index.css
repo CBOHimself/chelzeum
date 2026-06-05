@@ -144,6 +144,24 @@ a {
   color: var(--color-text-light);
   line-height: 1;
 }
+.art-page-shop-btn {
+  flex-shrink: 0;
+  border: 1px solid var(--color-accent-rose);
+  background: var(--color-accent-rose);
+  color: #f4ede5;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-family: 'Century Gothic', Century, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 11px 18px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.art-page-shop-btn:hover {
+  transform: translateY(-1px);
+  opacity: 0.92;
+}
 .art-page--loading,
 .art-page--error {
   padding: 64px 60px;
