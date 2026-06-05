@@ -1640,6 +1640,15 @@ a {
 .signup-popup__close:hover {
   color: var(--color-accent-rose);
 }
+.signup-popup__test-banner {
+  margin: 0 0 12px;
+  padding: 8px 10px;
+  font-size: 11px;
+  line-height: 1.35;
+  color: var(--color-text-light);
+  background: color-mix(in srgb, var(--color-accent-rose) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-accent-rose) 35%, transparent);
+}
 .signup-popup__eyebrow {
   margin: 0 0 8px;
   font-size: 10px;

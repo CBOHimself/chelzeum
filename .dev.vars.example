@@ -1,7 +1,9 @@
-# Local secrets for: npx wrangler pages dev dist
+# Local secrets for: npm run pages:dev
 # Copy to .dev.vars (gitignored) — do not commit real values.
 
-TURNSTILE_SECRET_KEY=
+# Cloudflare test keys (pair with auto test site key in npm run dev):
+TURNSTILE_ALLOW_TEST_KEYS=true
+TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA
 RESEND_API_KEY=
 RESEND_FROM_EMAIL=Chelzeum Signups <onboarding@resend.dev>
 SIGNUP_TO_EMAIL=chelzeum@gmail.com

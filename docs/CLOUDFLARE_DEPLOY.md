@@ -73,6 +73,7 @@ npm run pages:dev             # build + wrangler dev (site + API)
 | `wrangler deploy` says missing entry-point / assets | Pull latest `main` (Worker + `[assets] directory = "./dist"`) |
 | `Project not found` on `wrangler pages deploy` | You have a **Worker** project — use `wrangler deploy`, not `pages deploy` |
 | Signup 404 | Worker `worker/index.js` must be deployed; check `VITE_SIGNUP_API_URL=/api/subscribe` |
+| Turnstile error **110200** | Domain not authorized for that **site key**. On production, add `chelzeum.net` / `www.chelzeum.net` to the widget that owns your `VITE_TURNSTILE_SITE_KEY`. For **local dev**, use Cloudflare test keys instead (automatic in `npm run dev`; set `TURNSTILE_ALLOW_TEST_KEYS=true` + test secret in `.dev.vars` for `npm run pages:dev`). Use `http://localhost`, not `127.0.0.1`. To test production keys locally, set `VITE_TURNSTILE_USE_PRODUCTION=true` in `.env`. |
 
 ---
 

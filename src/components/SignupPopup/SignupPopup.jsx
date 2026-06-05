@@ -3,8 +3,25 @@ import { Turnstile } from "@marsidev/react-turnstile";
 import { AnimatePresence, motion } from "framer-motion";
 
 const DISMISS_KEY = "chelzeum-signup-dismissed";
-const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY;
+const TURNSTILE_TEST_SITE_KEY = "1x00000000000000000000AA";
 const SIGNUP_API_URL = import.meta.env.VITE_SIGNUP_API_URL || "/api/subscribe";
+const IS_TEST_MODE =
+  import.meta.env.DEV || import.meta.env.VITE_SIGNUP_TEST_MODE === "true";
+const USING_TURNSTILE_TEST_KEY =
+  import.meta.env.DEV && import.meta.env.VITE_TURNSTILE_USE_PRODUCTION !== "true";
+
+function resolveTurnstileSiteKey() {
+  if (USING_TURNSTILE_TEST_KEY) {
+    return import.meta.env.VITE_TURNSTILE_SITE_KEY_DEV?.trim() || TURNSTILE_TEST_SITE_KEY;
+  }
+  return import.meta.env.VITE_TURNSTILE_SITE_KEY?.trim() ?? "";
+}
+
+const TURNSTILE_SITE_KEY = resolveTurnstileSiteKey();
+
+function isTurnstileSiteKey(key) {
+  return typeof key === "string" && /^(?:0x|1x|2x|3x)[\w-]{10,}$/.test(key);
+}
 
 function makeCaptcha() {
   const a = Math.floor(Math.random() * 8) + 2;
@@ -44,22 +61,72 @@ export default function SignupPopup() {
   const [form, setForm] = useState({ name: "", phone: "", email: "", captcha: "" });
   const [captchaChallenge, setCaptchaChallenge] = useState(makeCaptcha);
   const [turnstileToken, setTurnstileToken] = useState("");
+  const [turnstileUnavailable, setTurnstileUnavailable] = useState(
+    () => !isTurnstileSiteKey(TURNSTILE_SITE_KEY)
+  );
+  const [mountTurnstile, setMountTurnstile] = useState(false);
   const [status, setStatus] = useState({ type: "idle", message: "" });
   const [submitting, setSubmitting] = useState(false);
 
-  const useTurnstile = Boolean(TURNSTILE_SITE_KEY);
+  const useTurnstile = isTurnstileSiteKey(TURNSTILE_SITE_KEY) && !turnstileUnavailable;
+  const useMathCaptcha = !useTurnstile;
 
   useEffect(() => {
-    if (readDismissed()) return;
-    const timer = window.setTimeout(() => setVisible(true), 1200);
+    if (!IS_TEST_MODE && readDismissed()) return;
+    const delay = IS_TEST_MODE ? 0 : 1200;
+    const timer = window.setTimeout(() => setVisible(true), delay);
     return () => window.clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    if (!visible || turnstileUnavailable || !isTurnstileSiteKey(TURNSTILE_SITE_KEY)) {
+      setMountTurnstile(false);
+      return;
+    }
+    const timer = window.setTimeout(() => setMountTurnstile(true), 500);
+    return () => window.clearTimeout(timer);
+  }, [visible, turnstileUnavailable]);
+
+  useEffect(() => {
+    if (IS_TEST_MODE || !mountTurnstile || turnstileToken || turnstileUnavailable) return;
+    const timer = window.setTimeout(() => {
+      setTurnstileUnavailable(true);
+      setTurnstileToken("");
+      setCaptchaChallenge(makeCaptcha());
+    }, 8000);
+    return () => window.clearTimeout(timer);
+  }, [mountTurnstile, turnstileToken, turnstileUnavailable]);
+
+  function turnstileLoadErrorMessage() {
+    const host =
+      typeof window !== "undefined" ? window.location.hostname : "this site";
+    const keyHint = TURNSTILE_SITE_KEY.slice(0, 8);
+    if (USING_TURNSTILE_TEST_KEY) {
+      return `Turnstile failed on ${host} even with Cloudflare test keys. Try http://localhost (not 127.0.0.1), disable ad blockers, or hard-refresh.`;
+    }
+    return `Turnstile error 110200 on "${host}" for site key ${keyHint}… — confirm that exact key’s widget in Cloudflare → Turnstile lists ${host} (and use http://localhost, not 127.0.0.1). For local dev, remove VITE_TURNSTILE_USE_PRODUCTION from .env to use Cloudflare test keys instead.`;
+  }
+
+  function fallBackToMathCaptcha() {
+    if (IS_TEST_MODE) {
+      setStatus({
+        type: "error",
+        message: turnstileLoadErrorMessage(),
+      });
+      return;
+    }
+    setTurnstileUnavailable(true);
+    setTurnstileToken("");
+    setCaptchaChallenge(makeCaptcha());
+  }
+
   function dismiss() {
-    try {
-      localStorage.setItem(DISMISS_KEY, "1");
-    } catch {
-      /* ignore */
+    if (!IS_TEST_MODE) {
+      try {
+        localStorage.setItem(DISMISS_KEY, "1");
+      } catch {
+        /* ignore */
+      }
     }
     setVisible(false);
   }
@@ -75,11 +142,11 @@ export default function SignupPopup() {
       phone: form.phone.trim(),
       email: form.email.trim(),
       turnstileToken: useTurnstile ? turnstileToken : undefined,
-      captchaA: useTurnstile ? undefined : captchaChallenge.a,
-      captchaB: useTurnstile ? undefined : captchaChallenge.b,
-      captchaAnswer: useTurnstile ? undefined : form.captcha,
+      captchaA: useMathCaptcha ? captchaChallenge.a : undefined,
+      captchaB: useMathCaptcha ? captchaChallenge.b : undefined,
+      captchaAnswer: useMathCaptcha ? form.captcha : undefined,
     }),
-    [form, turnstileToken, useTurnstile, captchaChallenge]
+    [form, turnstileToken, useTurnstile, useMathCaptcha, captchaChallenge]
   );
 
   async function handleSubmit(e) {
@@ -91,7 +158,7 @@ export default function SignupPopup() {
       return;
     }
 
-    if (!useTurnstile && Number(form.captcha) !== captchaChallenge.answer) {
+    if (useMathCaptcha && Number(form.captcha) !== captchaChallenge.answer) {
       setStatus({ type: "error", message: "Captcha is incorrect. Please try again." });
       setForm((prev) => ({ ...prev, captcha: "" }));
       setCaptchaChallenge(makeCaptcha());
@@ -113,10 +180,12 @@ export default function SignupPopup() {
         type: "success",
         message: "Thank you — you're on the list. We'll be in touch soon.",
       });
-      setForm({ name: "", phone: "", email: "", captcha: "" });
-      setTurnstileToken("");
-      setCaptchaChallenge(makeCaptcha());
-      window.setTimeout(dismiss, 2200);
+      if (!IS_TEST_MODE) {
+        setForm({ name: "", phone: "", email: "", captcha: "" });
+        setTurnstileToken("");
+        setCaptchaChallenge(makeCaptcha());
+        window.setTimeout(dismiss, 2200);
+      }
     } catch (err) {
       setStatus({
         type: "error",
@@ -166,6 +235,12 @@ export default function SignupPopup() {
               ✕
             </button>
 
+            {IS_TEST_MODE && (
+              <p className="signup-popup__test-banner" role="status">
+                Test mode — popup and captcha stay open for verification
+                {USING_TURNSTILE_TEST_KEY ? " (Cloudflare test site key on localhost)" : ""}
+              </p>
+            )}
             <p className="signup-popup__eyebrow">Stay in touch</p>
             <h2 id="signup-popup-title" className="signup-popup__title">
               Sign up to be the first to get updates
@@ -208,17 +283,17 @@ export default function SignupPopup() {
                 />
               </label>
 
-              {useTurnstile ? (
+              {useTurnstile && mountTurnstile ? (
                 <div className="signup-popup__captcha">
                   <Turnstile
                     siteKey={TURNSTILE_SITE_KEY}
                     onSuccess={setTurnstileToken}
                     onExpire={() => setTurnstileToken("")}
-                    onError={() => setTurnstileToken("")}
-                    options={{ theme: "dark" }}
+                    onError={fallBackToMathCaptcha}
+                    options={{ theme: "dark", size: "normal" }}
                   />
                 </div>
-              ) : (
+              ) : useMathCaptcha ? (
                 <label className="events-form-field">
                   <span>
                     Captcha: What is {captchaChallenge.a} + {captchaChallenge.b}?
@@ -231,7 +306,7 @@ export default function SignupPopup() {
                     required
                   />
                 </label>
-              )}
+              ) : null}
 
               <button
                 type="submit"

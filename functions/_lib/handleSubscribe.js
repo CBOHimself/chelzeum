@@ -9,11 +9,9 @@ function json(data, status = 200) {
   return new Response(JSON.stringify(data), { status, headers: JSON_HEADERS });
 }
 
-async function verifyTurnstile(token, remoteip, env) {
-  const secret = env.TURNSTILE_SECRET_KEY;
-  if (!secret) return { ok: true, skipped: true };
-  if (!token) return { ok: false, error: "Captcha token missing" };
+const TURNSTILE_TEST_SECRET = "1x0000000000000000000000000000000AA";
 
+async function verifyTurnstileWithSecret(secret, token, remoteip) {
   const res = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -21,6 +19,22 @@ async function verifyTurnstile(token, remoteip, env) {
   });
   const data = await res.json();
   return data.success ? { ok: true } : { ok: false, error: "Captcha verification failed" };
+}
+
+async function verifyTurnstile(token, remoteip, env) {
+  const secret = env.TURNSTILE_SECRET_KEY;
+  if (!secret) return { ok: true, skipped: true };
+  if (!token) return { ok: false, error: "Captcha token missing" };
+
+  const primary = await verifyTurnstileWithSecret(secret, token, remoteip);
+  if (primary.ok) return primary;
+
+  if (env.TURNSTILE_ALLOW_TEST_KEYS === "true" && secret !== TURNSTILE_TEST_SECRET) {
+    const fallback = await verifyTurnstileWithSecret(TURNSTILE_TEST_SECRET, token, remoteip);
+    if (fallback.ok) return fallback;
+  }
+
+  return primary;
 }
 
 function verifyMathCaptcha({ captchaA, captchaB, captchaAnswer }) {
@@ -96,16 +110,17 @@ export async function handleSubscribe(request, env) {
 
     const remoteip = request.headers.get("CF-Connecting-IP") || undefined;
     const turnstile = await verifyTurnstile(turnstileToken, remoteip, env);
+    const mathOk = verifyMathCaptcha({ captchaA, captchaB, captchaAnswer });
 
-    if (!turnstile.ok) {
-      return json({ error: turnstile.error || "Captcha failed" }, 400);
-    }
-
-    if (turnstile.skipped && env.TURNSTILE_SECRET_KEY) {
-      return json({ error: "Captcha is not configured on the server." }, 500);
-    }
-
-    if (turnstile.skipped && !verifyMathCaptcha({ captchaA, captchaB, captchaAnswer })) {
+    if (turnstile.ok && !turnstile.skipped) {
+      /* Turnstile verified */
+    } else if (mathOk) {
+      /* Math captcha fallback (e.g. Turnstile widget unavailable) */
+    } else if (turnstileToken && env.TURNSTILE_SECRET_KEY) {
+      return json({ error: turnstile.error || "Captcha verification failed" }, 400);
+    } else if (env.TURNSTILE_SECRET_KEY) {
+      return json({ error: "Please complete the captcha." }, 400);
+    } else {
       return json({ error: "Captcha is incorrect." }, 400);
     }
 
