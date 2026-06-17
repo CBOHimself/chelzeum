@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaInstagram, FaTiktok, FaXTwitter } from 'react-icons/fa6';
-import { SiEtsy } from 'react-icons/si';
 import { FaShop } from 'react-icons/fa6';
 
 const THEME_STORAGE_KEY = 'chelzeum-theme';

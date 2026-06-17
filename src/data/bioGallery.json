@@ -1,0 +1,177 @@
+[
+  {
+    "id": "bg-os-001",
+    "imageUrl": "/assets/events/open_studio/240923_Wembley%20Park-010H2A9054.jpg",
+    "caption": "Open studio at Wembley Park, London — studio visit during London open studios.",
+    "alt": "Artist workspace at Wembley Park open studio",
+    "visible": true
+  },
+  {
+    "id": "bg-os-002",
+    "imageUrl": "/assets/events/open_studio/240923_Wembley%20Park-020H2A9080.jpg",
+    "caption": "Open studio at Wembley Park, London — paintings and work in progress on display.",
+    "alt": "Artworks on view at Wembley Park open studio",
+    "visible": true
+  },
+  {
+    "id": "bg-os-003",
+    "imageUrl": "/assets/events/open_studio/IMG_0876.jpg",
+    "caption": "Open studio, London — welcoming visitors into the workspace.",
+    "alt": "Open studio event in London",
+    "visible": true
+  },
+  {
+    "id": "bg-os-004",
+    "imageUrl": "/assets/events/open_studio/IMG_1179.jpg",
+    "caption": "Open studio, London — sharing work and conversation with guests.",
+    "alt": "Guests at an open studio in London",
+    "visible": true
+  },
+  {
+    "id": "bg-os-005",
+    "imageUrl": "/assets/events/open_studio/IMG_1185.jpg",
+    "caption": "Open studio, London — participated in two open studio events across the city.",
+    "alt": "Open studio gathering in London",
+    "visible": true
+  },
+  {
+    "id": "bg-fp-001",
+    "imageUrl": "/assets/events/firepit/FP1.jpg",
+    "caption": "Round the Fire Stories (2024) — FirePit Gallery, London. Curated by Curtis Donovan.",
+    "alt": "Round the Fire Stories exhibition at FirePit Gallery",
+    "visible": true
+  },
+  {
+    "id": "bg-fp-002",
+    "imageUrl": "/assets/events/firepit/IMG_8888.jpg",
+    "caption": "FirePit Gallery, London — exhibited True 2 Self as part of Round the Fire Stories.",
+    "alt": "True 2 Self on display at FirePit Gallery",
+    "visible": true
+  },
+  {
+    "id": "bg-fp-003",
+    "imageUrl": "/assets/events/firepit/IMG_8893.jpg",
+    "caption": "Round the Fire Stories — installation view, FirePit Gallery, London.",
+    "alt": "Exhibition installation at FirePit Gallery",
+    "visible": true
+  },
+  {
+    "id": "bg-fp-004",
+    "imageUrl": "/assets/events/firepit/IMG_8954.JPG",
+    "caption": "FirePit Gallery, London — Round the Fire Stories opening night.",
+    "alt": "Opening night at FirePit Gallery",
+    "visible": true
+  },
+  {
+    "id": "bg-bhm-001",
+    "imageUrl": "/assets/events/bhm_snp/bhm_snp_rn.jpg",
+    "caption": "Black History Month Sip and Paint: Reclaiming Narratives (2024) — Burson Roots, London. Led creative workshop.",
+    "alt": "Black History Month Sip and Paint at Burson Roots, 2024",
+    "visible": true
+  },
+  {
+    "id": "bg-bhm-002",
+    "imageUrl": "/assets/events/bhm_snp/bhm_snp_sos.jpg",
+    "caption": "Black History Month Sip and Paint: Reclaiming Narratives (2023) — Burson Roots, London.",
+    "alt": "Black History Month Sip and Paint at Burson Roots, 2023",
+    "visible": true
+  },
+  {
+    "id": "bg-bhm-003",
+    "imageUrl": "/assets/events/bhm_snp/IMG_3262.jpg",
+    "caption": "Sip and Paint at Burson Roots — participants exploring identity through guided painting.",
+    "alt": "Workshop participants painting at Burson Roots",
+    "visible": true
+  },
+  {
+    "id": "bg-bhm-004",
+    "imageUrl": "/assets/events/bhm_snp/IMG_3264.jpg",
+    "caption": "Reclaiming Narratives — reflective painting exercises on memory and personal storytelling.",
+    "alt": "Participant working on a painting during the workshop",
+    "visible": true
+  },
+  {
+    "id": "bg-bhm-005",
+    "imageUrl": "/assets/events/bhm_snp/IMG_3287.jpg",
+    "caption": "Burson Roots workshop — community session on visual expression and narrative.",
+    "alt": "Community painting workshop at Burson Roots",
+    "visible": true
+  },
+  {
+    "id": "bg-bhm-006",
+    "imageUrl": "/assets/events/bhm_snp/IMG_3294.jpg",
+    "caption": "Black History Month programming — Sip and Paint with Burson Roots, London.",
+    "alt": "Black History Month Sip and Paint workshop scene",
+    "visible": true
+  },
+  {
+    "id": "bg-bhm-007",
+    "imageUrl": "/assets/events/bhm_snp/IMG_3300.jpg",
+    "caption": "Workshop in progress — reclaiming narratives through colour and form.",
+    "alt": "Artist-led Sip and Paint session",
+    "visible": true
+  },
+  {
+    "id": "bg-bhm-008",
+    "imageUrl": "/assets/events/bhm_snp/IMG_3302.jpg",
+    "caption": "Burson Roots, London — collaborative atmosphere during Black History Month.",
+    "alt": "Group at a Sip and Paint workshop",
+    "visible": true
+  },
+  {
+    "id": "bg-bhm-009",
+    "imageUrl": "/assets/events/bhm_snp/IMG_3307.jpg",
+    "caption": "Sip and Paint: Reclaiming Narratives — participants engaged in creative prompts.",
+    "alt": "Workshop participants with canvases and paint",
+    "visible": true
+  },
+  {
+    "id": "bg-bhm-010",
+    "imageUrl": "/assets/events/bhm_snp/IMG_3315.jpg",
+    "caption": "Artist-led workshop at Burson Roots — storytelling, identity, and visual expression.",
+    "alt": "Led creative workshop during Black History Month",
+    "visible": true
+  },
+  {
+    "id": "bg-bhm-011",
+    "imageUrl": "/assets/events/bhm_snp/IMG_3338.jpg",
+    "caption": "Reclaiming Narratives — Burson Roots Sip and Paint, London.",
+    "alt": "Painting workshop at Burson Roots",
+    "visible": true
+  },
+  {
+    "id": "bg-bhm-012",
+    "imageUrl": "/assets/events/bhm_snp/IMG_3343.jpg",
+    "caption": "Black History Month Sip and Paint — shared space for reflection and making.",
+    "alt": "Workshop room during Sip and Paint",
+    "visible": true
+  },
+  {
+    "id": "bg-bhm-013",
+    "imageUrl": "/assets/events/bhm_snp/IMG_9953.jpg",
+    "caption": "Burson Roots, London — Sip and Paint session on reclaiming personal narratives.",
+    "alt": "Sip and Paint workshop participants",
+    "visible": true
+  },
+  {
+    "id": "bg-bhm-014",
+    "imageUrl": "/assets/events/bhm_snp/IMG_9983.jpg",
+    "caption": "Black History Month workshop — painting as a tool for narrative and identity.",
+    "alt": "Participant at Black History Month workshop",
+    "visible": true
+  },
+  {
+    "id": "bg-bhm-015",
+    "imageUrl": "/assets/events/bhm_snp/IMG_9985.jpg",
+    "caption": "Reclaiming Narratives at Burson Roots — community creative workshop.",
+    "alt": "Community creative workshop in London",
+    "visible": true
+  },
+  {
+    "id": "bg-bhm-016",
+    "imageUrl": "/assets/events/bhm_snp/IMG_9988.jpg",
+    "caption": "Black History Month Sip and Paint: Reclaiming Narratives — Burson Roots, London.",
+    "alt": "Black History Month Sip and Paint workshop",
+    "visible": true
+  }
+]

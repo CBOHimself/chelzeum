@@ -10,7 +10,7 @@
     "type": "past",
     "description": "Led creative workshop during Black History Month programming.",
     "longDescription": "Artist-led workshop hosted with Burson Roots. The session focused on reclaiming narratives through painting, helping participants explore identity and personal storytelling through guided visual prompts.",
-    "imageUrl": "/assets/events/bhm_snp_rn.jpg",
+    "imageUrl": "/assets/events/bhm_snp/bhm_snp_rn.jpg",
     "inviteUrl": null,
     "tags": ["Workshop", "Community"]
   },
@@ -24,7 +24,7 @@
     "type": "past",
     "description": "Burson Roots workshop on storytelling, identity, and visual expression.",
     "longDescription": "Black History Month workshop delivered in collaboration with Burson Roots. Participants engaged in reflective painting exercises centered on memory, identity, and visual narrative making.",
-    "imageUrl": "/assets/events/bhm_snp_sos.jpg",
+    "imageUrl": "/assets/events/bhm_snp/bhm_snp_sos.jpg",
     "inviteUrl": null,
     "tags": ["Workshop", "Black History Month"]
   },

@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import BioGallery from "../components/BioGallery/BioGallery";
 
 const education = [
   {
@@ -150,16 +151,7 @@ export default function Bio() {
       <Timeline heading="Education" items={education} />
       <Timeline heading="Exhibitions and Shows" items={exhibitions} />
 
-      <section className="bio-section">
-        <h2 className="bio-section__title">Open Studios</h2>
-        <p className="bio-section__text">
-          Participated in two open studio events in London.
-        </p>
-        <div className="bio-image-row">
-          <div className="bio-image-placeholder" />
-          <div className="bio-image-placeholder" />
-        </div>
-      </section>
+      <BioGallery />
 
       <Timeline heading="Events and Workshops" items={workshops} />
 
